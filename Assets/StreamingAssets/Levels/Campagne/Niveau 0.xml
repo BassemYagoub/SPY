@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<level>
+  <map>
+    <line>
+      <row value="1" />
+	  <row value="1" />
+      <row value="1" />
+      <row value="1" />
+      <row value="1" />
+      <row value="1" />
+      <row value="1" />
+    </line>
+    <line>
+      <row value="1" />
+	  <row value="0" />
+      <row value="1" />
+      <row value="0" />
+      <row value="0" />
+      <row value="0" />
+      <row value="1" />
+    </line>
+    <line>
+      <row value="1" />
+	  <row value="0" />
+      <row value="1" />
+      <row value="0" />
+      <row value="1" />
+      <row value="1" />
+      <row value="1" />
+    </line>
+    <line>
+      <row value="1" />
+	  <row value="0" />
+      <row value="0" />
+      <row value="0" />
+      <row value="0" />
+      <row value="0" />
+      <row value="1" />
+    </line>
+    <line>
+      <row value="1" />
+	  <row value="1" />
+      <row value="1" />
+      <row value="0" />
+      <row value="1" />
+      <row value="0" />
+      <row value="1" />
+    </line>
+    <line>
+      <row value="1" />
+	  <row value="3" />
+      <row value="0" />
+      <row value="0" />
+      <row value="1" />
+      <row value="0" />
+      <row value="1" />
+    </line>
+    <line>
+      <row value="1" />
+	  <row value="1" />
+      <row value="1" />
+      <row value="1" />
+      <row value="1" />
+      <row value="1" />
+      <row value="1" />
+    </line>
+  </map>
+  <dialogs dialog="Ceci est un niveau test ! " />
+  <!--<dialogs dialog="Pour cela, il faut donner des ordres au robot en faisant glisser les actions dans la partie blanche de la fenêtre de script." img="drophere.png" />
+  <dialogs dialog="Tu peux utiliser le clic droit sur une action du script pour la supprimer, le bouton ci-dessous permet de vider la fenêtre de script d'un seul coup."  img="resetButton.png"/>-->
+  <actionBlocLimit>
+    <limit actionType="Forward" limit="-1" />
+    <limit actionType="TurnLeft" limit="-1" />
+    <limit actionType="TurnRight" limit="-1" />
+    <limit actionType="Wait" limit="-1" />
+    <limit actionType="Activate" limit="-1" />
+    <limit actionType="TurnBack" limit="0" />
+    <limit actionType="If" limit="0" />
+    <limit actionType="For" limit="-1" />
+  </actionBlocLimit>
+	
+  <player posX="3" posZ="3" direction="0" />
+	
+  <enemy posX="3" posZ="1" direction="3" range="2" selfRange="False" typeRange="0">
+    <script>
+		<action actionType="Forever">
+			<action actionType="Wait"/>
+			<action actionType="Wait"/>
+			<action actionType="TurnRight"/>
+		</action>
+    </script>
+  </enemy>
+  <enemy posX="1" posZ="3" direction="1" range="2" selfRange="False" typeRange="0">
+    <script>
+		<action actionType="Forever">
+			<action actionType="Wait"/>
+			<action actionType="Wait"/>
+			<action actionType="TurnRight"/>
+		</action>
+    </script>
+  </enemy>
+	
+  <activable posX="1" posZ="1" direction="3">
+	  <slot slot="1" />
+  </activable>
+  <activable posX="5" posZ="5" direction="2">
+	  <slot slot="0" />
+  </activable>
+	
+  <door posX="3" posZ="2" slot="0" direction="1" />
+  <door posX="4" posZ="3" slot="1" direction="2" />
+	
+  <coin posX="1" posZ="5" />
+  <score twoStars="7999" threeStars="10500"/>
+</level>
