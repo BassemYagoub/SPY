@@ -2048,10 +2048,45 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3663434775026915367, guid: 4958c9deb5ab940aaa5f1aa223419d71,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4251686935205481384, guid: 4958c9deb5ab940aaa5f1aa223419d71,
         type: 3}
       propertyPath: m_Name
       value: LilBot
+      objectReference: {fileID: 0}
+    - target: {fileID: 4251686935205481384, guid: 4958c9deb5ab940aaa5f1aa223419d71,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5708056718312599931, guid: 4958c9deb5ab940aaa5f1aa223419d71,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6996705357902941236, guid: 4958c9deb5ab940aaa5f1aa223419d71,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7860843206243347181, guid: 4958c9deb5ab940aaa5f1aa223419d71,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8519187946075778964, guid: 4958c9deb5ab940aaa5f1aa223419d71,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9023314429232088011, guid: 4958c9deb5ab940aaa5f1aa223419d71,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4958c9deb5ab940aaa5f1aa223419d71, type: 3}
