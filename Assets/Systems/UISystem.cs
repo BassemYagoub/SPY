@@ -325,7 +325,8 @@ public class UISystem : FSystem {
 				}
 			}
 		}
-		go.transform.DetachChildren();
+		go.transform.DetachChildren(); //would let all children in the hierarchy after destroying go
+
 		GameObjectManager.unbind(go);
 		UnityEngine.Object.Destroy(go);
 	}
