@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using TMPro;
 using System.IO;
+using System.Collections;
 
 /// <summary>
 /// Manage dialogs at the begining of the level
@@ -27,7 +28,9 @@ public class UISystem : FSystem {
 	private Family libraryPanel = FamilyManager.getFamily(new AllOfComponents(typeof(GridLayoutGroup)));
 	private GameData gameData;
 	private GameObject dialogPanel;
+	private GameObject lilBot;
 	private int nDialog = 0;
+	private bool textAnimationDone = true;
 	private GameObject buttonPlay;
 	private GameObject buttonContinue;
 	private GameObject buttonStop;
@@ -58,6 +61,9 @@ public class UISystem : FSystem {
 			GameObjectManager.setGameObjectState(endPanel.transform.parent.gameObject, false);
 			dialogPanel = GameObject.Find("DialogPanel");
 			GameObjectManager.setGameObjectState(dialogPanel.transform.parent.gameObject, false);
+
+			lilBot = GameObject.Find("LilBot").gameObject;
+			Debug.Log(lilBot.transform.position);
 
 			requireEndPanel.addEntryCallback(displayEndPanel);
 			displayedEndPanel.addEntryCallback(onDisplayedEndPanel);
@@ -340,10 +346,24 @@ public class UISystem : FSystem {
 		return null;	
 	}
 
+	private IEnumerator TextAnimation() {
+		dialogPanel.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = "";
+		lilBot.GetComponent<Animator>().SetBool("IsTalking", true);
+		foreach (char letter in gameData.dialogMessage[nDialog].Item1) {
+			if (!textAnimationDone) { //if wanting to pass animation
+				dialogPanel.transform.Find("Text").GetComponent<TextMeshProUGUI>().text += letter;
+				yield return new WaitForSeconds(.02f);
+			}
+		}
+		textAnimationDone = true;
+		lilBot.GetComponent<Animator>().SetBool("IsTalking", false);
+	}
+
 	public void showDialogPanel(){
 		GameObjectManager.setGameObjectState(dialogPanel.transform.parent.gameObject, true);
 		nDialog = 0;
 		dialogPanel.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = gameData.dialogMessage[0].Item1;
+		//MainLoop.instance.StartCoroutine(TextAnimation()); //not working properly for first dialogpanel appearance
 		GameObject imageGO = dialogPanel.transform.Find("Image").gameObject;
 		if(gameData.dialogMessage[0].Item2 != null){
 			GameObjectManager.setGameObjectState(imageGO,true);
@@ -353,7 +373,7 @@ public class UISystem : FSystem {
 		else
 			GameObjectManager.setGameObjectState(imageGO,false);
 
-		if(gameData.dialogMessage.Count > 1){
+		if(gameData.dialogMessage.Count > 1) {
 			setActiveOKButton(false);
 			setActiveNextButton(true);
 		}
@@ -364,24 +384,34 @@ public class UISystem : FSystem {
 	}
 
 	// See NextButton in editor
-	public void nextDialog(){
-		nDialog++;
-		dialogPanel.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = gameData.dialogMessage[nDialog].Item1;
-		GameObject imageGO = dialogPanel.transform.Find("Image").gameObject;
-		if(gameData.dialogMessage[nDialog].Item2 != null){
-			GameObjectManager.setGameObjectState(imageGO,true);
-			imageGO.GetComponent<Image>().sprite = getImageAsSprite(Application.streamingAssetsPath+Path.DirectorySeparatorChar+"Levels"+
-			Path.DirectorySeparatorChar+gameData.levelToLoad.Item1+Path.DirectorySeparatorChar+"Images"+Path.DirectorySeparatorChar+gameData.dialogMessage[nDialog].Item2);		}
-		else
-			GameObjectManager.setGameObjectState(imageGO,false);
+	public void nextDialog() {
+		if (textAnimationDone) {
+			textAnimationDone = false;
 
-		if(nDialog + 1 < gameData.dialogMessage.Count){
-			setActiveOKButton(false);
-			setActiveNextButton(true);
-		}
-		else{
-			setActiveOKButton(true);
-			setActiveNextButton(false);
+			nDialog++;
+			MainLoop.instance.StartCoroutine(TextAnimation());
+			//dialogPanel.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = gameData.dialogMessage[nDialog].Item1;
+			GameObject imageGO = dialogPanel.transform.Find("Image").gameObject;
+			if (gameData.dialogMessage[nDialog].Item2 != null) {
+				GameObjectManager.setGameObjectState(imageGO, true);
+				imageGO.GetComponent<Image>().sprite = getImageAsSprite(Application.streamingAssetsPath + Path.DirectorySeparatorChar + "Levels" +
+				Path.DirectorySeparatorChar + gameData.levelToLoad.Item1 + Path.DirectorySeparatorChar + "Images" + Path.DirectorySeparatorChar + gameData.dialogMessage[nDialog].Item2);
+			}
+			else
+				GameObjectManager.setGameObjectState(imageGO, false);
+
+			if (nDialog + 1 < gameData.dialogMessage.Count) {
+				setActiveOKButton(false);
+				setActiveNextButton(true);
+			}
+			else {
+				setActiveOKButton(true);
+				setActiveNextButton(false);
+			}
+        }
+        else { //text animation not done + click => cancel dialogue animation
+			textAnimationDone = true;
+			dialogPanel.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = gameData.dialogMessage[nDialog].Item1;
 		}
 	}
 

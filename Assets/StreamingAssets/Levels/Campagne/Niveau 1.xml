@@ -22,9 +22,16 @@
       <row value="1" />
     </line>
   </map>
-  <dialogs dialog="Bienvenue dans Spy !&#xA; Ton objectif est de t'échapper en atteignant la sortie (téléporteur rouge) !" />
-  <dialogs dialog="Pour cela, il faut donner des ordres au robot en faisant glisser les actions dans la partie blanche de la fenêtre de script." img="drophere.png" />
-  <dialogs dialog="Tu peux utiliser le clic droit sur une action du script pour la supprimer, le bouton ci-dessous permet de vider la fenêtre de script d'un seul coup."  img="resetButton.png"/>
+  <!-- original dialogs
+    <dialogs dialog="Bienvenue dans Spy !&#xA; Ton objectif est de t'échapper en atteignant la sortie (téléporteur rouge) !" />
+    <dialogs dialog="Pour cela, il faut donner des ordres au robot en faisant glisser les actions dans la partie blanche de la fenêtre de script." img="drophere.png" />
+    <dialogs dialog="Tu peux utiliser le clic droit sur une action du script pour la supprimer, le bouton ci-dessous permet de vider la fenêtre de script d'un seul coup."  img="resetButton.png"/>
+  -->
+  <dialogs dialog="Hey, tu m'entends ?" />
+  <dialogs dialog="Bienvenue dans La Décharge,&#xA; si on est ici c'est parce qu'on ne nous trouve plus utile ou qu'on est défectueux.&#xA;&#xA; Ah, et moi c'est LilBot au fait !" />
+  <dialogs dialog="J'ai réussi à réactiver un de tes modules de mouvements, donc si tu veux qu'on s'échappe d'ici il va falloir avancer pour qu'on atteigne cette sortie (le téléporteur rouge) !" />
+  <dialogs dialog="Pour cela, il faut que tu fasses glisser tes actions dans la partie blanche de ta fenêtre de script." img="drophere.png" />
+  <dialogs dialog="Tu peux aussi utiliser le clic droit sur une action pour la supprimer du script,&#xA; et le bouton ci-dessous permet de vider la fenêtre de script d'un seul coup."  img="resetButton.png"/>
   <actionBlocLimit>
     <limit actionType="Forward" limit="-1" />
     <limit actionType="TurnLeft" limit="0" />
