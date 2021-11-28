@@ -2130,6 +2130,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 361349236}
+        m_TargetAssemblyTypeName: SendStatements_wrapper, Assembly-CSharp
+        m_MethodName: testSendStatement
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &272413889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2672,6 +2684,7 @@ GameObject:
   - component: {fileID: 361349219}
   - component: {fileID: 361349232}
   - component: {fileID: 361349220}
+  - component: {fileID: 361349236}
   m_Layer: 0
   m_Name: Main_Loop
   m_TagString: Untagged
@@ -2835,7 +2848,11 @@ MonoBehaviour:
   m_Script: {fileID: 1260832056, guid: e5478ef6b90d22e4dbdbc892bafa4422, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fixedUpdateSystemDescriptions: []
+  _fixedUpdateSystemDescriptions:
+  - _typeAssemblyQualifiedName: SendStatements, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    _typeFullName: SendStatements
+    _pause: 0
   _updateSystemDescriptions:
   - _typeAssemblyQualifiedName: MoveSystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
@@ -3085,6 +3102,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9433476ced47ced42ae6170b5aff88a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &361349236
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 361349215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fada9ccc062a47188c77cc2592fe315, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &388713684
@@ -11149,6 +11178,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 361349236}
+        m_TargetAssemblyTypeName: SendStatements_wrapper, Assembly-CSharp
+        m_MethodName: testSendStatement
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &1504297954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14014,6 +14055,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 361349236}
+        m_TargetAssemblyTypeName: SendStatements_wrapper, Assembly-CSharp
+        m_MethodName: testSendStatement
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &1983660746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15337,6 +15390,18 @@ MonoBehaviour:
       - m_Target: {fileID: 361349221}
         m_TargetAssemblyTypeName: UISystem_wrapper, Assembly-CSharp
         m_MethodName: returnToTitleScreen
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 361349236}
+        m_TargetAssemblyTypeName: SendStatements_wrapper, Assembly-CSharp
+        m_MethodName: testSendStatement
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
