@@ -27,7 +27,7 @@ public static class GBL_Interface {
     // Fill in these fields for GBLxAPI setup.
     //Statements will be sent to all addresses in this list
     public static List<GBLConfig> lrsAddresses = new List<GBLConfig>() {
-        new GBLConfig("https://lrsmocah.lip6.fr/data/xAPI", "0cba1c6d1fb844993cec4ebc3ee458d271ad6d84", "6e4d81bb34ba308397943b8d1c40db389524b34a")
+        new GBLConfig("https://lrsmocah.lip6.fr/data/xAPI", "b107f0574d785982b14c744ec216eb60913b358c", "634bd2d12763c6832a4c714e906cf3989c4012ce")
     };
 	public static string userUUID = ""; // overrided in SendStatements system
     public static string playerName = ""; // overrided in SendStatements system
