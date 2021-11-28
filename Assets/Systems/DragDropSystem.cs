@@ -195,7 +195,7 @@ public class DragDropSystem : FSystem
 	private IEnumerator updatePlayButton(){
 		yield return null;
 		buttonPlay.GetComponent<Button>().interactable = !(editableScriptContainer_f.First().transform.childCount < 2);
-		buttonPlayFast.GetComponent<Button>().interactable = true;
+		buttonPlayFast.GetComponent<Button>().interactable = !(editableScriptContainer_f.First().transform.childCount < 2) || !buttonPlay.activeSelf;
 	}
 
 	public void onlyPositiveInteger(TMP_InputField input){
