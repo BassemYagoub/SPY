@@ -27,6 +27,7 @@ public class DragDropSystem : FSystem
 	private float catchTime;
 	
 	private GameObject buttonPlay;
+	private GameObject buttonPlayFast;
 	
 	public DragDropSystem()
 	{
@@ -37,6 +38,7 @@ public class DragDropSystem : FSystem
 			editableContainer = editableScriptContainer_f.First();
 			positionBar = editableContainer.transform.Find("PositionBar").gameObject;
 			buttonPlay = GameObject.Find("ExecuteButton");
+			buttonPlayFast = GameObject.Find("SpeedButton");
 		}
 	}
 
@@ -193,6 +195,7 @@ public class DragDropSystem : FSystem
 	private IEnumerator updatePlayButton(){
 		yield return null;
 		buttonPlay.GetComponent<Button>().interactable = !(editableScriptContainer_f.First().transform.childCount < 2);
+		buttonPlayFast.GetComponent<Button>().interactable = true;
 	}
 
 	public void onlyPositiveInteger(TMP_InputField input){

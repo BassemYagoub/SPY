@@ -30,7 +30,7 @@ public class UISystem : FSystem {
 	private GameObject dialogPanel;
 	private GameObject lilBot;
 	private int nDialog = 0;
-	private bool textAnimationDone = true;
+	private bool textAnimationDone = false;
 	private GameObject buttonPlay;
 	private GameObject buttonContinue;
 	private GameObject buttonStop;
@@ -138,13 +138,15 @@ public class UISystem : FSystem {
 	private void setExecutionState(bool finished){
 		buttonReset.GetComponent<Button>().interactable = finished;
 		buttonPlay.GetComponent<Button>().interactable = !finished;
+		buttonSpeed.GetComponent<Button>().interactable = !finished;
 		
 		GameObjectManager.setGameObjectState(buttonPlay, finished);
+		GameObjectManager.setGameObjectState(buttonSpeed, finished);
+
 		GameObjectManager.setGameObjectState(buttonContinue, !finished);
 		GameObjectManager.setGameObjectState(buttonStop, !finished);
 		GameObjectManager.setGameObjectState(buttonPause, !finished);
 		GameObjectManager.setGameObjectState(buttonStep, !finished);
-		GameObjectManager.setGameObjectState(buttonSpeed, !finished);
 
 		GameObjectManager.setGameObjectState(libraryPanel.First(), finished);
 		//editable canvas
@@ -362,8 +364,9 @@ public class UISystem : FSystem {
 	public void showDialogPanel(){
 		GameObjectManager.setGameObjectState(dialogPanel.transform.parent.gameObject, true);
 		nDialog = 0;
-		dialogPanel.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = gameData.dialogMessage[0].Item1;
-		//MainLoop.instance.StartCoroutine(TextAnimation()); //not working properly for first dialogpanel appearance
+		MainLoop.instance.StartCoroutine(TextAnimation());
+		//dialogPanel.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = gameData.dialogMessage[0].Item1;
+
 		GameObject imageGO = dialogPanel.transform.Find("Image").gameObject;
 		if(gameData.dialogMessage[0].Item2 != null){
 			GameObjectManager.setGameObjectState(imageGO,true);
@@ -387,10 +390,10 @@ public class UISystem : FSystem {
 	public void nextDialog() {
 		if (textAnimationDone) {
 			textAnimationDone = false;
-
-			nDialog++;
 			MainLoop.instance.StartCoroutine(TextAnimation());
+			nDialog++;
 			//dialogPanel.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = gameData.dialogMessage[nDialog].Item1;
+
 			GameObject imageGO = dialogPanel.transform.Find("Image").gameObject;
 			if (gameData.dialogMessage[nDialog].Item2 != null) {
 				GameObjectManager.setGameObjectState(imageGO, true);
@@ -404,7 +407,7 @@ public class UISystem : FSystem {
 				setActiveOKButton(false);
 				setActiveNextButton(true);
 			}
-			else {
+			else{
 				setActiveOKButton(true);
 				setActiveNextButton(false);
 			}
@@ -512,7 +515,6 @@ public class UISystem : FSystem {
 					UnityEngine.GameObject.Destroy(child.gameObject);
 				}
 			}
-
 			GameObject containerCopy = CopyActionsFrom(editableScriptContainer.First(), false, playerGO.First());
 			
 			foreach( GameObject go in playerGO){

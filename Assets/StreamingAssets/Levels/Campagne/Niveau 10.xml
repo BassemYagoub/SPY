@@ -51,7 +51,7 @@
     </line>
 
   </map>
-  <dialogs dialog="Attention !&#xA;Il y a un drône ayant une caméra de sécurité ici !"/>
+  <dialogs dialog="Attention !&#xA;Il y a un drone équipé d'une caméra de sécurité ici !"/>
   <dialogs dialog ="Tu peux voir son champ de vision en rouge.&#xA;Faufile toi sans te faire repérer !"/>
   <actionBlocLimit>
     <limit actionType="Forward" limit="-1" />
