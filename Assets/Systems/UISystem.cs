@@ -354,7 +354,7 @@ public class UISystem : FSystem {
 		foreach (char letter in gameData.dialogMessage[nDialog].Item1) {
 			if (!textAnimationDone) { //if wanting to pass animation
 				dialogPanel.transform.Find("Text").GetComponent<TextMeshProUGUI>().text += letter;
-				yield return new WaitForSeconds(.02f);
+				yield return new WaitForSeconds(.01f);
 			}
 		}
 		textAnimationDone = true;

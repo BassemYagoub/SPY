@@ -94,22 +94,26 @@ public class TitleScreenSystem : FSystem {
 	// See Jouer button in editor
 	public void showCampagneMenu(){
 		GameObjectManager.setGameObjectState(campagneMenu, true);
-		foreach(GameObject directory in levelButtons.Keys){
-			//show directory buttons
-			GameObjectManager.setGameObjectState(directory, true);
-			//hide level buttons
-			foreach(GameObject level in levelButtons[directory]){
-				GameObjectManager.setGameObjectState(level, false);
-			}
+		int i = 0;
+		foreach(GameObject directory in levelButtons.Keys) {
+			//hide directory buttons
+			GameObjectManager.setGameObjectState(directory, false);
+
+			//only show levels from "Campagne" folder
+			if (i <= 0) {
+				showLevels(directory);
+            }
+            else { break; }
+			i++;
 		}
 		GameObjectManager.setGameObjectState(playButton, false);
 		GameObjectManager.setGameObjectState(quitButton, false);
 		GameObjectManager.setGameObjectState(backButton, true);
 	}
 
-	private void showLevels(GameObject levelDirectory){
+	private void showLevels(GameObject levelDirectory) {
 		//show/hide levels
-		foreach(GameObject directory in levelButtons.Keys){
+		foreach (GameObject directory in levelButtons.Keys){
 			//hide level directories
 			GameObjectManager.setGameObjectState(directory, false);
 			//show levels
@@ -121,11 +125,12 @@ public class TitleScreenSystem : FSystem {
 					string directoryName = levelDirectory.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
 					//locked levels
 					if (i > PlayerPrefs.GetInt(directoryName, 0)) { //by default first level of directory is the only unlocked level of directory
-						//PUT BACK TO FALSE when developpement is done
-						levelButtons[directory][i].transform.Find("Button").GetComponent<Button>().interactable = true;
+						levelButtons[directory][i].transform.Find("Button").GetComponent<Button>().interactable = true; //old version
+						//GameObjectManager.setGameObjectState(levelButtons[directory][i].transform.Find("Button").gameObject, false);
 					}
 					else { //unlocked levels
 						levelButtons[directory][i].transform.Find("Button").GetComponent<Button>().interactable = true;
+
 						//scores
 						int scoredStars = PlayerPrefs.GetInt(directoryName + Path.DirectorySeparatorChar + i + gameData.scoreKey, 0); //0 star by default
 						Transform scoreCanvas = levelButtons[directory][i].transform.Find("ScoreCanvas");
@@ -155,14 +160,14 @@ public class TitleScreenSystem : FSystem {
 	// See Retour button in editor
 	public void backFromCampagneMenu(){
 		foreach(GameObject directory in levelButtons.Keys){
-			if(directory.activeSelf){
+			//if(directory.activeSelf){
 				//main menu
 				GameObjectManager.setGameObjectState(campagneMenu, false);
 				GameObjectManager.setGameObjectState(playButton, true);
 				GameObjectManager.setGameObjectState(quitButton, true);
 				GameObjectManager.setGameObjectState(backButton, false);
 				break;
-			}
+			/*}
 			else{
 				//show directory buttons
 				GameObjectManager.setGameObjectState(directory, true);
@@ -170,7 +175,7 @@ public class TitleScreenSystem : FSystem {
 				foreach(GameObject go in levelButtons[directory]){
 					GameObjectManager.setGameObjectState(go, false);
 				}
-			}
+			}*/
 		}
 	}
 
