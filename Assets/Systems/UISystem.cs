@@ -351,6 +351,7 @@ public class UISystem : FSystem {
 	private IEnumerator TextAnimation() {
 		dialogPanel.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = "";
 		lilBot.GetComponent<Animator>().SetBool("IsTalking", true);
+
 		foreach (char letter in gameData.dialogMessage[nDialog].Item1) {
 			if (!textAnimationDone) { //if wanting to pass animation
 				dialogPanel.transform.Find("Text").GetComponent<TextMeshProUGUI>().text += letter;
@@ -390,8 +391,8 @@ public class UISystem : FSystem {
 	public void nextDialog() {
 		if (textAnimationDone) {
 			textAnimationDone = false;
-			MainLoop.instance.StartCoroutine(TextAnimation());
 			nDialog++;
+			MainLoop.instance.StartCoroutine(TextAnimation());
 			//dialogPanel.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = gameData.dialogMessage[nDialog].Item1;
 
 			GameObject imageGO = dialogPanel.transform.Find("Image").gameObject;
@@ -412,7 +413,7 @@ public class UISystem : FSystem {
 				setActiveNextButton(false);
 			}
         }
-        else { //text animation not done + click => cancel dialogue animation
+        else { //text animation not done + click => cancel dialog animation
 			textAnimationDone = true;
 			dialogPanel.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = gameData.dialogMessage[nDialog].Item1;
 		}
@@ -428,9 +429,15 @@ public class UISystem : FSystem {
 
 	// See OKButton in editor
 	public void closeDialogPanel(){
-		nDialog = 0;
-		gameData.dialogMessage = new List<(string,string)>();;
-		GameObjectManager.setGameObjectState(dialogPanel.transform.parent.gameObject, false);
+		if (textAnimationDone) {
+			nDialog = 0;
+			gameData.dialogMessage = new List<(string, string)>(); ;
+			GameObjectManager.setGameObjectState(dialogPanel.transform.parent.gameObject, false);
+        }
+        else {
+			textAnimationDone = true;
+			dialogPanel.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = gameData.dialogMessage[nDialog].Item1;
+		}
 	}
 
 	public void reloadScene(){
