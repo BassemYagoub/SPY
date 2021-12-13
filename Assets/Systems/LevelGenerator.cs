@@ -360,7 +360,7 @@ public class LevelGenerator : FSystem {
 				prefab = Resources.Load("Prefabs/WhileBloc") as GameObject;
 				obj = Object.Instantiate(prefab);
 				obj.GetComponent<UIActionType>().linkedTo = GameObject.Find("While");
-				action = obj.GetComponent<IfAction>();
+				action = obj.GetComponent<WhileAction>();
 				//read xml
 				((WhileAction)action).ifDirection = int.Parse(actionNode.Attributes.GetNamedItem("ifDirection").Value);
 				((WhileAction)action).ifEntityType = int.Parse(actionNode.Attributes.GetNamedItem("ifEntityType").Value);
@@ -480,13 +480,13 @@ public class LevelGenerator : FSystem {
 				child.GetComponent<BaseElement>().next = container.transform.GetChild(i+1).gameObject;
 			}
 			else if(i == container.transform.childCount-1 && child.GetComponent<BaseElement>() && container.GetComponent<BaseElement>()){
-				if(container.GetComponent<ForAction>() || container.GetComponent<ForeverAction>())
+				if(container.GetComponent<ForAction>() || container.GetComponent<WhileAction>() || container.GetComponent<ForeverAction>())
 					child.GetComponent<BaseElement>().next = container;
 				else if(container.GetComponent<IfAction>())
 					child.GetComponent<BaseElement>().next = container.GetComponent<BaseElement>().next;
 			}
 			//if or for action
-			if(child.GetComponent<IfAction>() || child.GetComponent<ForAction>() || child.GetComponent<ForeverAction>())
+			if(child.GetComponent<IfAction>() || child.GetComponent<ForAction>() || child.GetComponent<WhileAction>() || child.GetComponent<ForeverAction>())
 				computeNext(child.gameObject);
 		}
 	}
