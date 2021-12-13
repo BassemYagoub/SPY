@@ -124,6 +124,17 @@ public class CurrentActionManager : FSystem
 					// this if doesn't contain action or its condition is false => get first action of next action (could be if, for...)
 					return getFirstActionOf(action.GetComponent<IfAction>().next, agent);
 			}
+			// check if action is a IfAction
+			else if (action.GetComponent<WhileAction>()) {
+				// check if this IfAction include a child and if condition is evaluated to true
+
+				if (action.GetComponent<WhileAction>().firstChild != null && WhileValid(action.GetComponent<WhileAction>(), agent))
+					// get first action of its first child (could be if, for...)
+					return getFirstActionOf(action.GetComponent<WhileAction>().firstChild, agent);
+				else
+					// this if doesn't contain action or its condition is false => get first action of next action (could be if, for...)
+					return getFirstActionOf(action.GetComponent<WhileAction>().next, agent);
+			}
 			// check if action is a ForeverAction
 			else if (action.GetComponent<ForeverAction>())
 				// always return firstchild of this ForeverAction
@@ -201,6 +212,76 @@ public class CurrentActionManager : FSystem
 		}
 		return ifok;
 	}
+
+
+	//same as IfValid (to change if possible)
+	public bool WhileValid(WhileAction ifAction, GameObject scripted) {
+		bool ifok = false;
+		// get absolute target position depending on player orientation and relative direction to observe
+		Vector2 vec = new Vector2();
+		switch (getDirection(scripted.GetComponent<Direction>().direction, ifAction.ifDirection)) {
+			case Direction.Dir.North:
+				vec = new Vector2(0, ifAction.range);
+				break;
+			case Direction.Dir.South:
+				vec = new Vector2(0, -ifAction.range);
+				break;
+			case Direction.Dir.East:
+				vec = new Vector2(ifAction.range, 0);
+				break;
+			case Direction.Dir.West:
+				vec = new Vector2(-ifAction.range, 0);
+				break;
+		}
+
+		// check target position
+		switch (ifAction.ifEntityType) {
+			case 0: // walls
+				foreach (GameObject go in wallGO)
+					if (go.GetComponent<Position>().x == scripted.GetComponent<Position>().x + vec.x &&
+					 go.GetComponent<Position>().z == scripted.GetComponent<Position>().z + vec.y)
+						ifok = !ifAction.ifNot;
+				break;
+			case 1: // doors
+				foreach (GameObject go in doorGO)
+					if (go.GetComponent<Position>().x == scripted.GetComponent<Position>().x + vec.x &&
+					 go.GetComponent<Position>().z == scripted.GetComponent<Position>().z + vec.y)
+						ifok = !ifAction.ifNot;
+				break;
+			case 2: // ennemies
+				foreach (GameObject go in droneGO)
+					if (go.GetComponent<Position>().x == scripted.GetComponent<Position>().x + vec.x &&
+						go.GetComponent<Position>().z == scripted.GetComponent<Position>().z + vec.y)
+						ifok = !ifAction.ifNot;
+				break;
+			case 3: // allies
+				foreach (GameObject go in playerGO)
+					if (go.GetComponent<Position>().x == scripted.GetComponent<Position>().x + vec.x &&
+						go.GetComponent<Position>().z == scripted.GetComponent<Position>().z + vec.y)
+						ifok = !ifAction.ifNot;
+				break;
+			case 4: // consoles
+				foreach (GameObject go in activableConsoleGO)
+					if (go.GetComponent<Position>().x == scripted.GetComponent<Position>().x + vec.x &&
+						go.GetComponent<Position>().z == scripted.GetComponent<Position>().z + vec.y)
+						ifok = !ifAction.ifNot;
+				break;
+			case 5: // detectors
+				foreach (GameObject go in redDetectorGO)
+					if (go.GetComponent<Position>().x == scripted.GetComponent<Position>().x + vec.x &&
+					 go.GetComponent<Position>().z == scripted.GetComponent<Position>().z + vec.y)
+						ifok = !ifAction.ifNot;
+				break;
+			case 6: // coins
+				foreach (GameObject go in coinGO)
+					if (go.GetComponent<Position>().x == scripted.GetComponent<Position>().x + vec.x &&
+					 go.GetComponent<Position>().z == scripted.GetComponent<Position>().z + vec.y)
+						ifok = !ifAction.ifNot;
+				break;
+		}
+		return ifok;
+	}
+
 
 	//0 Forward, 1 Backward, 2 Left, 3 Right
 	public static Direction.Dir getDirection(Direction.Dir dirEntity, int relativeDir)

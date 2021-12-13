@@ -355,7 +355,50 @@ public class LevelGenerator : FSystem {
 					}
 				}
 				break;
-			
+
+			case "While":
+				prefab = Resources.Load("Prefabs/WhileBloc") as GameObject;
+				obj = Object.Instantiate(prefab);
+				obj.GetComponent<UIActionType>().linkedTo = GameObject.Find("While");
+				action = obj.GetComponent<IfAction>();
+				//read xml
+				((WhileAction)action).ifDirection = int.Parse(actionNode.Attributes.GetNamedItem("ifDirection").Value);
+				((WhileAction)action).ifEntityType = int.Parse(actionNode.Attributes.GetNamedItem("ifEntityType").Value);
+				((WhileAction)action).range = int.Parse(actionNode.Attributes.GetNamedItem("range").Value);
+				((WhileAction)action).ifNot = bool.Parse(actionNode.Attributes.GetNamedItem("ifNot").Value);
+
+				//add to gameobject
+				obj.transform.GetChild(0).Find("DropdownEntityType").GetComponent<TMP_Dropdown>().value = ((WhileAction)action).ifEntityType;
+				obj.transform.GetChild(0).Find("DropdownDirection").GetComponent<TMP_Dropdown>().value = ((WhileAction)action).ifDirection;
+				obj.transform.GetChild(0).Find("InputFieldRange").GetComponent<TMP_InputField>().text = ((WhileAction)action).range.ToString();
+
+				if (!((WhileAction)action).ifNot)
+					obj.transform.GetChild(0).Find("DropdownIsOrIsNot").GetComponent<TMP_Dropdown>().value = 0;
+				else
+					obj.transform.GetChild(0).Find("DropdownIsOrIsNot").GetComponent<TMP_Dropdown>().value = 1;
+
+				//not interactable actions
+				obj.transform.GetChild(0).Find("DropdownEntityType").GetComponent<TMP_Dropdown>().interactable = editable;
+				obj.transform.GetChild(0).Find("DropdownDirection").GetComponent<TMP_Dropdown>().interactable = editable;
+				obj.transform.GetChild(0).Find("InputFieldRange").GetComponent<TMP_InputField>().interactable = editable;
+				obj.transform.GetChild(0).Find("DropdownIsOrIsNot").GetComponent<TMP_Dropdown>().interactable = editable;
+
+				Object.Destroy(obj.GetComponent<UITypeContainer>());
+
+				//add children
+				firstchild = false;
+				if (actionNode.HasChildNodes) {
+					foreach (XmlNode actNode in actionNode.ChildNodes) {
+						GameObject child = (readXMLAction(actNode, editable));
+						child.transform.SetParent(obj.transform);
+						if (!firstchild) {
+							firstchild = true;
+							((WhileAction)action).firstChild = child;
+						}
+					}
+				}
+				break;
+
 			case "For":
 				prefab = Resources.Load ("Prefabs/ForBloc") as GameObject;
 				obj = Object.Instantiate (prefab);

@@ -63,7 +63,6 @@ public class UISystem : FSystem {
 			GameObjectManager.setGameObjectState(dialogPanel.transform.parent.gameObject, false);
 
 			lilBot = GameObject.Find("LilBot").gameObject;
-			Debug.Log(lilBot.transform.position);
 
 			requireEndPanel.addEntryCallback(displayEndPanel);
 			displayedEndPanel.addEntryCallback(onDisplayedEndPanel);
@@ -304,12 +303,25 @@ public class UISystem : FSystem {
 		}
 	}
 
+	public void undoResetScript() {
+		GameObject editableContainer = editableScriptContainer.First();
+		for (int i = 0; i < editableContainer.transform.childCount; i++) {
+			if (editableContainer.transform.GetChild(i).GetComponent<BaseElement>()) {
+			}
+
+		}
+		refreshUI();
+	}
+
+
 	// Empty the script window
 	// See ResetButton in editor
 	public void resetScript(bool refund = false){
 		GameObject editableContainer = editableScriptContainer.First();
+		List<GameObject> childrenInContainer = new List<GameObject>();
 		for (int i = 0 ; i < editableContainer.transform.childCount ; i++){
 			if(editableContainer.transform.GetChild(i).GetComponent<BaseElement>()){
+				childrenInContainer.Add(editableContainer.transform.GetChild(i).gameObject);
 				destroyScript(editableContainer.transform.GetChild(i).gameObject, refund);				
 			}
 		

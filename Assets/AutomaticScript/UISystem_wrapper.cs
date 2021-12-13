@@ -9,6 +9,11 @@ public class UISystem_wrapper : MonoBehaviour
 		this.hideFlags = HideFlags.HideInInspector; // Hide this component in Inspector
 	}
 
+	public void undoResetScript()
+	{
+		MainLoop.callAppropriateSystemMethod ("UISystem", "undoResetScript", null);
+	}
+
 	public void resetScript(System.Boolean refund)
 	{
 		MainLoop.callAppropriateSystemMethod ("UISystem", "resetScript", refund);
