@@ -217,6 +217,8 @@ public class UISystem : FSystem {
 			}			
 			else if(go.GetComponent<IfAction>())
 				go.GetComponent<UIActionType>().linkedTo = GameObject.Find("If");
+			else if (go.GetComponent<WhileAction>())
+				go.GetComponent<UIActionType>().linkedTo = GameObject.Find("While");
 			else if(go.GetComponent<ForAction>())
 				go.GetComponent<UIActionType>().linkedTo = GameObject.Find("For");
 		}
@@ -614,7 +616,20 @@ public class UISystem : FSystem {
 			}
 		}
 
-		foreach(UITypeContainer typeContainer in copyGO.GetComponentsInChildren<UITypeContainer>()){
+		foreach (WhileAction WhileAct in copyGO.GetComponentsInChildren<WhileAction>()) {
+			WhileAct.ifEntityType = WhileAct.transform.GetChild(0).Find("DropdownEntityType").GetComponent<TMP_Dropdown>().value;
+			WhileAct.ifDirection = WhileAct.transform.GetChild(0).Find("DropdownDirection").GetComponent<TMP_Dropdown>().value;
+			WhileAct.range = int.Parse(WhileAct.transform.GetChild(0).Find("InputFieldRange").GetComponent<TMP_InputField>().text);
+			WhileAct.ifNot = (WhileAct.transform.GetChild(0).Find("DropdownIsOrIsNot").GetComponent<TMP_Dropdown>().value == 1);
+			foreach (BaseElement act in WhileAct.GetComponentsInChildren<BaseElement>()) {
+				if (!act.Equals(WhileAct)) {
+					WhileAct.firstChild = act.gameObject;
+					break;
+				}
+			}
+		}
+
+		foreach (UITypeContainer typeContainer in copyGO.GetComponentsInChildren<UITypeContainer>()){
 			typeContainer.enabled = isInteractable;
 		}
 		foreach(PointerSensitive pointerSensitive in copyGO.GetComponentsInChildren<PointerSensitive>()){

@@ -53,7 +53,6 @@ public class BlocLimitationManager : FSystem {
 	}
 
 	private void updateBlocLimit(string keyName, GameObject draggableGO){
-		Debug.Log(keyName);
 		bool isActive = gameData.actionBlocLimit[keyName] != 0; // negative means no limit
 		GameObjectManager.setGameObjectState(draggableGO, isActive);
 		if(isActive){
