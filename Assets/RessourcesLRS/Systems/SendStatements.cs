@@ -6,6 +6,7 @@ using System.IO;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
+
 public class SendStatements : FSystem {
 
     private Family f_actionForLRS = FamilyManager.getFamily(new AllOfComponents(typeof(ActionPerformedForLRS)));
@@ -95,7 +96,9 @@ public class SendStatements : FSystem {
      
     public void JouerButtonSendStatement()
     {
-        Debug.Log("Button Jouer cliked by player { "+GBL_Interface.playerName + " } asks to send statement...");
+   
+        
+        Debug.Log("Button Jouer cliked by player { "+GBL_Interface.playerName + " } asks to send statement...at ");
         GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
         {
             verb = "interacted",
@@ -105,5 +108,22 @@ public class SendStatements : FSystem {
         });
 
    }
+   
+   public void QuitterButtonSendStatement()
+    {
+        Debug.Log("Button Quiter cliked by player { "+GBL_Interface.playerName + " } asks to send statement...");
+        GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
+        {
+            verb = "interacted",
+            objectType = "menu",
+            objectName = "Grp4_B.R.S :  Player {"+GBL_Interface.playerName+" } click on Button 'Quitter 'at date [ "+ DateTime.Now.ToString("dd/MM/yyyy")+" ] Time : [ "+DateTime.Now.ToString("hh : mm :ss")+" ] Total Global Click on button ' Quitter' for this player in this session of  Game is  "+2,
+ 
+        });
+
+   }
+   
+   
+   
+   
     
 }

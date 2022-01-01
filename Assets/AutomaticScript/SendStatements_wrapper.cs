@@ -24,4 +24,9 @@ public class SendStatements_wrapper : MonoBehaviour
 		MainLoop.callAppropriateSystemMethod ("SendStatements", "JouerButtonSendStatement", null);
 	}
 
+	public void QuitterButtonSendStatement()
+	{
+		MainLoop.callAppropriateSystemMethod ("SendStatements", "QuitterButtonSendStatement", null);
+	}
+
 }
