@@ -180,7 +180,7 @@ public class SendStatements : FSystem {
    	
    }
    
-   public void BackToMenuStatement(){
+   public void BackToMenuSendStatement(){
    	
    	 Debug.Log("player  { "+GBL_Interface.playerName + " } click on button Back To menu");
         GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
@@ -188,6 +188,19 @@ public class SendStatements : FSystem {
             verb = "interacted",
             objectType = "menu",
             objectName = "Grp4_B.R.S :  Player {"+GBL_Interface.playerName+" }  click on button Back To menu  at date [ "+ DateTime.Now.ToString("dd/MM/yyyy")+" ] Time : [ "+DateTime.Now.ToString("hh : mm :ss")+" ]",
+ 
+        });
+   	
+   }
+   
+  public void ExecuteSendStatement(){
+   	
+   	 Debug.Log("player  { "+GBL_Interface.playerName + " } click on button Execute ");
+        GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
+        {
+            verb = "interacted",
+            objectType = "menu",
+            objectName = "Grp4_B.R.S :  Player {"+GBL_Interface.playerName+" }  click on button Execute at date [ "+ DateTime.Now.ToString("dd/MM/yyyy")+" ] Time : [ "+DateTime.Now.ToString("hh : mm :ss")+" ]",
  
         });
    	
