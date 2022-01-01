@@ -19,4 +19,9 @@ public class SendStatements_wrapper : MonoBehaviour
 		MainLoop.callAppropriateSystemMethod ("SendStatements", "testSendStatement", null);
 	}
 
+	public void JouerButtonSendStatement()
+	{
+		MainLoop.callAppropriateSystemMethod ("SendStatements", "JouerButtonSendStatement", null);
+	}
+
 }

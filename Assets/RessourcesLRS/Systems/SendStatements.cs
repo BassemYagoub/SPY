@@ -71,7 +71,7 @@ public class SendStatements : FSystem {
                     }
                 }
             }
-            for (int i = nb - 1; i > -1; i--)
+           for (int i = nb - 1; i > -1; i--)
             {
                 GameObjectManager.removeComponent(listAP[i]);
             }
@@ -85,7 +85,25 @@ public class SendStatements : FSystem {
         {
             verb = "interacted",
             objectType = "menu",
-            objectName = "myButton"
+            objectName = "MyButton",
+           /* activityExtensions = new Dictionary<string, string>() {
+		  { "availableExtension1", "myContent1" },
+		  { "availableExtension2", "myContent2" }
+	     }*/
         });
-    }
+     }   
+     
+    public void JouerButtonSendStatement()
+    {
+        Debug.Log("Button Jouer cliked by player { "+GBL_Interface.playerName + " } asks to send statement...");
+        GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
+        {
+            verb = "interacted",
+            objectType = "menu",
+            objectName = "Grp4_B.R.S :  Player {"+GBL_Interface.playerName+" } click on Button 'Jouer 'at date [ "+ DateTime.Now.ToString("dd/MM/yyyy")+" ] Time : [ "+DateTime.Now.ToString("hh : mm :ss")+" ] Total Global Click on button ' Jouer ' for this player in this session of  Game is  "+2,
+ 
+        });
+
+   }
+    
 }
