@@ -100,7 +100,7 @@ public class SendStatements : FSystem {
    	Debug.Log(" time of click on Jouer : "+TimeClickJouer);
 
         
-        Debug.Log("Button Jouer cliked by player { "+GBL_Interface.playerName + " } asks to send statement...at ");
+        Debug.Log("Button Jouer cliked by player { "+GBL_Interface.playerName + " } asks to send statement... ");
         GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
         {
             verb = "started",
@@ -180,7 +180,18 @@ public class SendStatements : FSystem {
    	
    }
    
-   
+   public void BackToMenuStatement(){
+   	
+   	 Debug.Log("player  { "+GBL_Interface.playerName + " } click on button Back To menu");
+        GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
+        {
+            verb = "interacted",
+            objectType = "menu",
+            objectName = "Grp4_B.R.S :  Player {"+GBL_Interface.playerName+" }  click on button Back To menu  at date [ "+ DateTime.Now.ToString("dd/MM/yyyy")+" ] Time : [ "+DateTime.Now.ToString("hh : mm :ss")+" ]",
+ 
+        });
+   	
+   }
    
    
     
