@@ -131,12 +131,50 @@ public class SendStatements : FSystem {
    	System.TimeSpan diff = TimeClickQuitter.Subtract(TimeClickJouer);
    	Debug.Log(" PLayTimeDUration : [ "+diff+"  ]");
    	
-   	 Debug.Log("Le joueur  { "+GBL_Interface.playerName + " } a quitter le jeu ");
+   	 Debug.Log("Player { "+GBL_Interface.playerName + " } has quit the game ");
         GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
         {
             verb = "completed",
             objectType = "menu",
             objectName = "Grp4_B.R.S :  Player {"+GBL_Interface.playerName+" } has quit the game at date [ "+ DateTime.Now.ToString("dd/MM/yyyy")+" ] Time : [ "+DateTime.Now.ToString("hh : mm :ss")+" ] the duration game [ "+diff+" ]",
+ 
+        });
+   	
+   }
+   
+   public void TurnLeftSendStatement(){
+   	
+   	 Debug.Log("player  { "+GBL_Interface.playerName + " } Drag&drop  TurnLeft instruction  ");
+        GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
+        {
+            verb = "interacted",
+            objectType = "menu",
+            objectName = "Grp4_B.R.S :  Player {"+GBL_Interface.playerName+" }  Drag&drop  TurnLeft instruction  at date [ "+ DateTime.Now.ToString("dd/MM/yyyy")+" ] Time : [ "+DateTime.Now.ToString("hh : mm :ss")+" ]",
+ 
+        });
+   	
+   }
+   
+   public void TurnRightSendStatement(){
+   	
+   	 Debug.Log("player  { "+GBL_Interface.playerName + " } Drag&drop  TurnRight instruction  ");
+        GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
+        {
+            verb = "interacted",
+            objectType = "menu",
+            objectName = "Grp4_B.R.S :  Player {"+GBL_Interface.playerName+" }  Drag&drop  TurnRight instruction  at date [ "+ DateTime.Now.ToString("dd/MM/yyyy")+" ] Time : [ "+DateTime.Now.ToString("hh : mm :ss")+" ]",
+ 
+        });
+   	
+   }
+    public void ForwardSendStatement(){
+   	
+   	 Debug.Log("player  { "+GBL_Interface.playerName + " } Drag&drop  Forward instruction  ");
+        GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
+        {
+            verb = "interacted",
+            objectType = "menu",
+            objectName = "Grp4_B.R.S :  Player {"+GBL_Interface.playerName+" }  Drag&drop  Forward instruction  at date [ "+ DateTime.Now.ToString("dd/MM/yyyy")+" ] Time : [ "+DateTime.Now.ToString("hh : mm :ss")+" ]",
  
         });
    	

@@ -34,4 +34,19 @@ public class SendStatements_wrapper : MonoBehaviour
 		MainLoop.callAppropriateSystemMethod ("SendStatements", "GamePlayDuration", null);
 	}
 
+	public void TurnLeftSendStatement()
+	{
+		MainLoop.callAppropriateSystemMethod ("SendStatements", "TurnLeftSendStatement", null);
+	}
+
+	public void TurnRightSendStatement()
+	{
+		MainLoop.callAppropriateSystemMethod ("SendStatements", "TurnRightSendStatement", null);
+	}
+
+	public void ForwardSendStatement()
+	{
+		MainLoop.callAppropriateSystemMethod ("SendStatements", "ForwardSendStatement", null);
+	}
+
 }
