@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 
 public class SendStatements : FSystem {
-
+ 
     private Family f_actionForLRS = FamilyManager.getFamily(new AllOfComponents(typeof(ActionPerformedForLRS)));
 
     public static SendStatements instance;
@@ -78,7 +78,7 @@ public class SendStatements : FSystem {
             }
         }
 	}
-
+   	
     public void testSendStatement()
     {
         Debug.Log(GBL_Interface.playerName + " asks to send statement...");
@@ -93,33 +93,53 @@ public class SendStatements : FSystem {
 	     }*/
         });
      }   
-     
+    DateTime TimeClickJouer;
     public void JouerButtonSendStatement()
     {
-   
+   	TimeClickJouer = DateTime.Now;
+   	Debug.Log(" time of click on Jouer : "+TimeClickJouer);
+
         
         Debug.Log("Button Jouer cliked by player { "+GBL_Interface.playerName + " } asks to send statement...at ");
         GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
         {
-            verb = "interacted",
+            verb = "started",
             objectType = "menu",
-            objectName = "Grp4_B.R.S :  Player {"+GBL_Interface.playerName+" } click on Button 'Jouer 'at date [ "+ DateTime.Now.ToString("dd/MM/yyyy")+" ] Time : [ "+DateTime.Now.ToString("hh : mm :ss")+" ] Total Global Click on button ' Jouer ' for this player in this session of  Game is  "+2,
+            objectName = "Grp4_B.R.S :  Player {"+GBL_Interface.playerName+" } click on Button 'Jouer 'at date [ "+ DateTime.Now.ToString("dd/MM/yyyy")+" ] Time : [ "+DateTime.Now.ToString("hh : mm :ss")+" ] Total Global Click on button ' Jouer ' for this player in this session of  Game is  "+1,
+ 
+        });
+
+   }
+   DateTime TimeClickQuitter;
+   public void QuitterButtonSendStatement()
+    {
+    	TimeClickQuitter = DateTime.Now;
+   	Debug.Log(" time of click on Quitter : "+TimeClickQuitter);
+   	
+        Debug.Log("Button Quiter cliked by player { "+GBL_Interface.playerName + " } asks to send statement...");
+        GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
+        {
+            verb = "completed",
+            objectType = "menu",
+            objectName = "Grp4_B.R.S :  Player {"+GBL_Interface.playerName+" } click on Button 'Quitter 'at date [ "+ DateTime.Now.ToString("dd/MM/yyyy")+" ] Time : [ "+DateTime.Now.ToString("hh : mm :ss")+" ]",
  
         });
 
    }
    
-   public void QuitterButtonSendStatement()
-    {
-        Debug.Log("Button Quiter cliked by player { "+GBL_Interface.playerName + " } asks to send statement...");
+   public void GamePlayDuration(){
+   	System.TimeSpan diff = TimeClickQuitter.Subtract(TimeClickJouer);
+   	Debug.Log(" PLayTimeDUration : [ "+diff+"  ]");
+   	
+   	 Debug.Log("Le joueur  { "+GBL_Interface.playerName + " } a quitter le jeu ");
         GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
         {
-            verb = "interacted",
+            verb = "completed",
             objectType = "menu",
-            objectName = "Grp4_B.R.S :  Player {"+GBL_Interface.playerName+" } click on Button 'Quitter 'at date [ "+ DateTime.Now.ToString("dd/MM/yyyy")+" ] Time : [ "+DateTime.Now.ToString("hh : mm :ss")+" ] Total Global Click on button ' Quitter' for this player in this session of  Game is  "+2,
+            objectName = "Grp4_B.R.S :  Player {"+GBL_Interface.playerName+" } has quit the game at date [ "+ DateTime.Now.ToString("dd/MM/yyyy")+" ] Time : [ "+DateTime.Now.ToString("hh : mm :ss")+" ] the duration game [ "+diff+" ]",
  
         });
-
+   	
    }
    
    

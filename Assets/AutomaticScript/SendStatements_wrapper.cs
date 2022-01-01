@@ -29,4 +29,9 @@ public class SendStatements_wrapper : MonoBehaviour
 		MainLoop.callAppropriateSystemMethod ("SendStatements", "QuitterButtonSendStatement", null);
 	}
 
+	public void GamePlayDuration()
+	{
+		MainLoop.callAppropriateSystemMethod ("SendStatements", "GamePlayDuration", null);
+	}
+
 }
