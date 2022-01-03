@@ -203,7 +203,18 @@ public class SendStatements : FSystem {
         });
    	
    }
-  
+   public void TurnBackSendStatement(){
+   	
+   	 Debug.Log("player  { "+GBL_Interface.playerName + " } Drag&drop  TurnBack instruction  ");
+        GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
+        {
+            verb = "interacted",
+            objectType = "menu",
+            objectName = "Grp4_B.R.S :  Player {"+GBL_Interface.playerName+" }  Drag&drop  TurnBack instruction  at date [ "+ DateTime.Now.ToString("dd/MM/yyyy")+" ] Time : [ "+DateTime.Now.ToString("hh : mm :ss")+" ]",
+ 
+        });
+   	
+   }
   
 
    public void BackToMenuSendStatement(){
