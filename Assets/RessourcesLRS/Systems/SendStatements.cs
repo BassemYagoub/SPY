@@ -180,6 +180,7 @@ public class SendStatements : FSystem {
    	
    }
    
+
    public void BackToMenuSendStatement(){
    	
    	 Debug.Log("player  { "+GBL_Interface.playerName + " } click on button Back To menu");
@@ -205,7 +206,43 @@ public class SendStatements : FSystem {
         });
    	
    }
+   public void SpeedSendStatement(){
+   	
+   	 Debug.Log("player  { "+GBL_Interface.playerName + " } click on button Speed execution ");
+        GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
+        {
+            verb = "interacted",
+            objectType = "menu",
+            objectName = "Grp4_B.R.S :  Player {"+GBL_Interface.playerName+" }  click on button Speed execution at date [ "+ DateTime.Now.ToString("dd/MM/yyyy")+" ] Time : [ "+DateTime.Now.ToString("hh : mm :ss")+" ]",
+ 
+        });
+   	
+   }
    
+    public void RestartLevelSendStatement(){
+   	
+   	 Debug.Log("player  { "+GBL_Interface.playerName + " } click on button Restart Level ");
+        GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
+        {
+            verb = "interacted",
+            objectType = "menu",
+            objectName = "Grp4_B.R.S :  Player {"+GBL_Interface.playerName+" }  click on button Restart Level at date [ "+ DateTime.Now.ToString("dd/MM/yyyy")+" ] Time : [ "+DateTime.Now.ToString("hh : mm :ss")+" ]",
+ 
+        });
+   	
+   }
+    public void ResetlSendStatement(){
+   	
+   	 Debug.Log("player  { "+GBL_Interface.playerName + " } click on button Reset ");
+        GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
+        {
+            verb = "interacted",
+            objectType = "menu",
+            objectName = "Grp4_B.R.S :  Player {"+GBL_Interface.playerName+" }  click on button reset at date [ "+ DateTime.Now.ToString("dd/MM/yyyy")+" ] Time : [ "+DateTime.Now.ToString("hh : mm :ss")+" ]",
+ 
+        });
+   	
+   }
    
     
 }

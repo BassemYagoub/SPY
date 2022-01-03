@@ -1634,9 +1634,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 361349216}
-        m_TargetAssemblyTypeName: StepSystem_wrapper, Assembly-CSharp
-        m_MethodName: speedTimeStep
+      - m_Target: {fileID: 361349236}
+        m_TargetAssemblyTypeName: SendStatements_wrapper, Assembly-CSharp
+        m_MethodName: SpeedSendStatement
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2266,7 +2266,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 361349236}
         m_TargetAssemblyTypeName: SendStatements_wrapper, Assembly-CSharp
-        m_MethodName: testSendStatement
+        m_MethodName: RestartLevelSendStatement
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3399,6 +3399,7 @@ GameObject:
   - component: {fileID: 388713686}
   - component: {fileID: 388713690}
   - component: {fileID: 388713691}
+  - component: {fileID: 388713692}
   m_Layer: 5
   m_Name: Wait
   m_TagString: Untagged
@@ -3519,6 +3520,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseColor: {r: 0.36320752, g: 0.67304397, b: 1, a: 1}
   highlightedColor: {r: 0.27634388, g: 0.5225582, b: 0.8490566, a: 1}
+--- !u!114 &388713692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 388713684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 14
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 361349236}
+          m_TargetAssemblyTypeName: SendStatements_wrapper, Assembly-CSharp
+          m_MethodName: WaitSendStatement
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &391846932
 GameObject:
   m_ObjectHideFlags: 0
@@ -14648,7 +14678,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 361349236}
         m_TargetAssemblyTypeName: SendStatements_wrapper, Assembly-CSharp
-        m_MethodName: testSendStatement
+        m_MethodName: ResetlSendStatement
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
