@@ -69,6 +69,11 @@ public class SendStatements_wrapper : MonoBehaviour
 		MainLoop.callAppropriateSystemMethod ("SendStatements", "IFSendStatement", null);
 	}
 
+	public void ForSendStatement()
+	{
+		MainLoop.callAppropriateSystemMethod ("SendStatements", "ForSendStatement", null);
+	}
+
 	public void BackToMenuSendStatement()
 	{
 		MainLoop.callAppropriateSystemMethod ("SendStatements", "BackToMenuSendStatement", null);
