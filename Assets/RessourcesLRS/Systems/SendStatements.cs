@@ -215,7 +215,18 @@ public class SendStatements : FSystem {
         });
    	
    }
-  
+   public void IFSendStatement(){
+   	
+   	 Debug.Log("player  { "+GBL_Interface.playerName + " } Drag&drop  IF instruction  ");
+        GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
+        {
+            verb = "interacted",
+            objectType = "menu",
+            objectName = "Grp4_B.R.S :  Player {"+GBL_Interface.playerName+" }  Drag&drop  IF instruction  at date [ "+ DateTime.Now.ToString("dd/MM/yyyy")+" ] Time : [ "+DateTime.Now.ToString("hh : mm :ss")+" ]",
+ 
+        });
+   	
+   }
 
    public void BackToMenuSendStatement(){
    	
