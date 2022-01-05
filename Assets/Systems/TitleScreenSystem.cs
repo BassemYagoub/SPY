@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using System.IO;
 using TMPro;
 using System.Xml;
+using DIG.GBLXAPI;
+
 
 /// <summary>
 /// Manage main menu to launch a specific mission
@@ -17,7 +19,27 @@ public class TitleScreenSystem : FSystem {
 	private GameObject backButton;
 	private GameObject cList;
 	private Dictionary<GameObject, List<GameObject>> levelButtons; //key = directory button,  value = list of level buttons
+	private GameObject mainLoop;
+        private SendStatements instance = new  SendStatements() ;
+        
 
+        void TaskWithParameters(string message)
+        {
+		//Output this to console when the Button2 is clicked
+		Debug.Log(message);
+        }
+        /*public void LevelSendStatement(){
+   	
+	   	Debug.Log("player  { "+GBL_Interface.playerName + " } click on Level .....Level Stared ");
+		GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
+		{
+		    verb = "interacted",
+		    objectType = "menu",
+		    objectName = "Grp4_B.R.S :  Player {"+GBL_Interface.playerName+" }  click on Level ....Level Started  at date [ "
+	 
+		});
+   	
+       }*/
 	public TitleScreenSystem(){
 		if (Application.isPlaying)
 		{
@@ -53,14 +75,17 @@ public class TitleScreenSystem : FSystem {
 				levelButtons[directoryButton] = new List<GameObject>();
 				GameObjectManager.bind(directoryButton);
 				// add on click
-				directoryButton.GetComponent<Button>().onClick.AddListener(delegate { showLevels(directoryButton); });
+				directoryButton.GetComponent<Button>().onClick.AddListener(delegate {showLevels(directoryButton); });
+				
 				// create level buttons
 				for (int i = 0; i < gameData.levelList[key].Count; i++)
 				{
 					GameObject button = Object.Instantiate<GameObject>(Resources.Load("Prefabs/LevelButton") as GameObject, cList.transform);
 					button.transform.Find("Button").GetChild(0).GetComponent<TextMeshProUGUI>().text = Path.GetFileNameWithoutExtension(gameData.levelList[key][i]);
 					int indice = i;
-					button.transform.Find("Button").GetComponent<Button>().onClick.AddListener(delegate { launchLevel(key, indice); });
+					
+					button.transform.Find("Button").GetComponent<Button>().onClick.AddListener(delegate {  instance.LevelSendStatement(); launchLevel(key, indice);  });
+
 					levelButtons[directoryButton].Add(button);
 					GameObjectManager.bind(button);
 					GameObjectManager.setGameObjectState(button, false);

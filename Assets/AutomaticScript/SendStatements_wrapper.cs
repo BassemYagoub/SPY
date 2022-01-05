@@ -104,4 +104,9 @@ public class SendStatements_wrapper : MonoBehaviour
 		MainLoop.callAppropriateSystemMethod ("SendStatements", "ResetlSendStatement", null);
 	}
 
+	public void LevelSendStatement()
+	{
+		MainLoop.callAppropriateSystemMethod ("SendStatements", "LevelSendStatement", null);
+	}
+
 }

@@ -11,7 +11,7 @@ public class SendStatements : FSystem {
  
     private Family f_actionForLRS = FamilyManager.getFamily(new AllOfComponents(typeof(ActionPerformedForLRS)));
 
-    public static SendStatements instance;
+    public static SendStatements instance ;
 
     public SendStatements()
     {
@@ -98,7 +98,7 @@ public class SendStatements : FSystem {
     {
    	TimeClickJouer = DateTime.Now;
    	Debug.Log(" time of click on Jouer : "+TimeClickJouer);
-
+      
         
         Debug.Log("Button Jouer cliked by player { "+GBL_Interface.playerName + " } asks to send statement... ");
         GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
@@ -316,6 +316,17 @@ public class SendStatements : FSystem {
         });
    	
    }
-   
+   public void LevelSendStatement(){
+   	
+	   	Debug.Log("player  { "+GBL_Interface.playerName + " } click on Level .....Level Stared ");
+		GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
+		{
+		    verb = "interacted",
+		    objectType = "menu",
+		    objectName = "Grp4_B.R.S :  Player {"+GBL_Interface.playerName+" }  click on Level ....Level Started  at date [ "
+	 
+		});
+   	
+       } 
     
 }
