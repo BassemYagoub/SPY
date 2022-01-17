@@ -55,10 +55,10 @@ public class DragDropSystem : FSystem
 			translation.Add(KeyCode.RightArrow, "TurnRight");
 			translation.Add(KeyCode.DownArrow, "TurnBack");
 			translation.Add(KeyCode.W, "Wait");
-			translation.Add(KeyCode.B, "For");
-			translation.Add(KeyCode.N, "While");
 			translation.Add(KeyCode.X, "If");
 			translation.Add(KeyCode.C, "Activate");
+			translation.Add(KeyCode.B, "For");
+			translation.Add(KeyCode.N, "While");
 		}
 	}
 
@@ -212,46 +212,48 @@ public class DragDropSystem : FSystem
         }
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-			Debug.Log("arrowUp OK");
-			Debug.Log("test forward: " + checkAction("Forward"));
-            if (checkAction("Forward"))
-			{
-				foreach (GameObject go in draggableElement)
-				{
-					// get prefab associated to this draggable element
-					GameObject prefab = go.GetComponent<ElementToDrag>().actionPrefab;
-					// get action key depending on prefab type
-					string key = getActionKey(prefab.GetComponent<BaseElement>());
-					Debug.Log("ActionKey: " + key);
-                    if (key.Equals("Forward"))
-                    {
-						Debug.Log("This one");
-						keyboardPrefab = prefab;
-                    }
-				}
+		{
+			keyboardActionEvent(KeyCode.UpArrow);
+		}
 
-				// Create a dragged GameObject
-				if(keyboardPrefab != null)
-                {
-					itemKeyboard = UnityEngine.Object.Instantiate<GameObject>(keyboardPrefab);
-					//transfert forward to editable container
-					itemKeyboard.transform.SetParent(editableContainer.transform);
-					itemKeyboard.transform.SetSiblingIndex(editableContainer.transform.GetSiblingIndex());
-					Debug.Log("ec active: " + editableContainer.activeInHierarchy);
-					foreach (Transform child in editableContainer.transform)
-					{
-						Debug.Log(child.name + "active: " + child.gameObject.activeInHierarchy);
-					}
-				}
+		if (Input.GetKeyDown(KeyCode.LeftArrow))
+		{
+			keyboardActionEvent(KeyCode.LeftArrow);
+		}
 
-				keyboardPrefab = null;
-			}
-            else
-            {
-				Debug.Log("Action disable");
-            }
-			//keyCheck();
+		if (Input.GetKeyDown(KeyCode.RightArrow))
+		{
+			keyboardActionEvent(KeyCode.RightArrow);
+		}
+
+		if (Input.GetKeyDown(KeyCode.DownArrow))
+		{
+			keyboardActionEvent(KeyCode.DownArrow);
+		}
+
+		if (Input.GetKeyDown(KeyCode.W))
+		{
+			keyboardActionEvent(KeyCode.W);
+		}
+
+		if (Input.GetKeyDown(KeyCode.X))
+		{
+			keyboardActionEvent(KeyCode.X);
+		}
+
+		if (Input.GetKeyDown(KeyCode.C))
+		{
+			keyboardActionEvent(KeyCode.C);
+		}
+
+		if (Input.GetKeyDown(KeyCode.B))
+		{
+			keyboardActionEvent(KeyCode.B);
+		}
+
+		if (Input.GetKeyDown(KeyCode.N))
+		{
+			keyboardActionEvent(KeyCode.N);
 		}
 	}
 
@@ -266,6 +268,47 @@ public class DragDropSystem : FSystem
 				Debug.Log(child.name + "active: " + child.gameObject.activeInHierarchy);
 			}
 		}
+	}
+
+	private void keyboardActionEvent(KeyCode keyCode)
+	{
+		String action = translation[keyCode];
+		if (checkAction(action))
+		{
+			foreach (GameObject go in draggableElement)
+			{
+				// get prefab associated to this draggable element
+				GameObject prefab = go.GetComponent<ElementToDrag>().actionPrefab;
+				// get action key depending on prefab type
+				string key = getActionKey(prefab.GetComponent<BaseElement>());
+				Debug.Log("ActionKey: " + keyCode + ", Action: " + action);
+				if (key.Equals(action))
+				{
+					Debug.Log("This one");
+					keyboardPrefab = prefab;
+				}
+			}
+
+			// Create a dragged GameObject
+			if (keyboardPrefab != null)
+			{
+				itemKeyboard = UnityEngine.Object.Instantiate<GameObject>(keyboardPrefab);
+				//transfert forward to editable container
+				itemKeyboard.transform.SetParent(editableContainer.transform);
+				itemKeyboard.transform.SetSiblingIndex(editableContainer.transform.GetSiblingIndex()+1);
+				Debug.Log("ec active: " + editableContainer.activeInHierarchy);
+				foreach (Transform child in editableContainer.transform)
+				{
+					Debug.Log(child.name + "active: " + child.gameObject.activeInHierarchy);
+				}
+			}
+		}
+		else
+		{
+			Debug.Log("Action disable");
+		}
+
+		keyboardPrefab = null;
 	}
 
 	private bool checkAction(string action)
