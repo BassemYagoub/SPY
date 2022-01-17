@@ -3,6 +3,7 @@ using FYFY;
 using FYFY_plugins.PointerManager;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using System;
 
@@ -18,9 +19,10 @@ public class DragDropSystem : FSystem
 	private Family editableScriptContainer_f = FamilyManager.getFamily(new AllOfComponents(typeof(UITypeContainer)), new AnyOfTags("ScriptConstructor"));
 	private Family editableScriptPointed_f = FamilyManager.getFamily(new AllOfComponents(typeof(UITypeContainer), typeof(PointerOver)), new AnyOfTags("ScriptConstructor"));
 	private GameObject mainCanvas;
-	private GameObject itemDragged;
-	private GameObject positionBar;
-	private GameObject editableContainer;
+	private GameObject itemDragged; //temp variable which register the current game object that we want to drag
+	private GameObject positionBar; //bare rouge
+	private GameObject editableContainer; //queue which will contain the list of all items gragged
+	private GameObject actionContainer;
 	
 	//double click
 	private float lastClickTime;
@@ -28,7 +30,13 @@ public class DragDropSystem : FSystem
 	
 	private GameObject buttonPlay;
 	private GameObject buttonPlayFast;
-	
+
+	//keyboard shortcut
+	private Family draggableElement = FamilyManager.getFamily(new AllOfComponents(typeof(ElementToDrag)));
+	private Dictionary<KeyCode, string> translation = new Dictionary<KeyCode, string>();
+	private GameObject itemKeyboard;
+	private GameObject keyboardPrefab;
+
 	public DragDropSystem()
 	{
 		if (Application.isPlaying)
@@ -39,6 +47,18 @@ public class DragDropSystem : FSystem
 			positionBar = editableContainer.transform.Find("PositionBar").gameObject;
 			buttonPlay = GameObject.Find("ExecuteButton");
 			buttonPlayFast = GameObject.Find("SpeedButton");
+
+			//Translate keyEvent into action
+			translation.Add(KeyCode.KeypadEnter, "ExecuteButton");
+			translation.Add(KeyCode.UpArrow, "Forward");
+			translation.Add(KeyCode.LeftArrow, "TurnLeft");
+			translation.Add(KeyCode.RightArrow, "TurnRight");
+			translation.Add(KeyCode.DownArrow, "TurnBack");
+			translation.Add(KeyCode.W, "Wait");
+			translation.Add(KeyCode.X, "If");
+			translation.Add(KeyCode.C, "Activate");
+			translation.Add(KeyCode.B, "For");
+			translation.Add(KeyCode.N, "While");
 		}
 	}
 
@@ -190,6 +210,125 @@ public class DragDropSystem : FSystem
             lastClickTime = Time.time;
 			MainLoop.instance.StartCoroutine(updatePlayButton());
         }
+
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+		{
+			keyboardActionEvent(KeyCode.UpArrow);
+		}
+
+		if (Input.GetKeyDown(KeyCode.LeftArrow))
+		{
+			keyboardActionEvent(KeyCode.LeftArrow);
+		}
+
+		if (Input.GetKeyDown(KeyCode.RightArrow))
+		{
+			keyboardActionEvent(KeyCode.RightArrow);
+		}
+
+		if (Input.GetKeyDown(KeyCode.DownArrow))
+		{
+			keyboardActionEvent(KeyCode.DownArrow);
+		}
+
+		if (Input.GetKeyDown(KeyCode.W))
+		{
+			keyboardActionEvent(KeyCode.W);
+		}
+
+		if (Input.GetKeyDown(KeyCode.X))
+		{
+			keyboardActionEvent(KeyCode.X);
+		}
+
+		if (Input.GetKeyDown(KeyCode.C))
+		{
+			keyboardActionEvent(KeyCode.C);
+		}
+
+		if (Input.GetKeyDown(KeyCode.B))
+		{
+			keyboardActionEvent(KeyCode.B);
+		}
+
+		if (Input.GetKeyDown(KeyCode.N))
+		{
+			keyboardActionEvent(KeyCode.N);
+		}
+	}
+
+	private void keyCheck()
+    {
+		actionContainer = mainCanvas.transform.Find("Panel").gameObject;
+		if (actionContainer != null)
+		{
+			Debug.Log("panel active: " + actionContainer.activeInHierarchy);
+			foreach (Transform child in actionContainer.transform)
+			{
+				Debug.Log(child.name + "active: " + child.gameObject.activeInHierarchy);
+			}
+		}
+	}
+
+	private void keyboardActionEvent(KeyCode keyCode)
+	{
+		String action = translation[keyCode];
+		if (checkAction(action))
+		{
+			foreach (GameObject go in draggableElement)
+			{
+				// get prefab associated to this draggable element
+				GameObject prefab = go.GetComponent<ElementToDrag>().actionPrefab;
+				// get action key depending on prefab type
+				string key = getActionKey(prefab.GetComponent<BaseElement>());
+				Debug.Log("ActionKey: " + keyCode + ", Action: " + action);
+				if (key.Equals(action))
+				{
+					Debug.Log("This one");
+					keyboardPrefab = prefab;
+				}
+			}
+
+			// Create a dragged GameObject
+			if (keyboardPrefab != null)
+			{
+				itemKeyboard = UnityEngine.Object.Instantiate<GameObject>(keyboardPrefab);
+				//transfert forward to editable container
+				itemKeyboard.transform.SetParent(editableContainer.transform);
+				itemKeyboard.transform.SetSiblingIndex(positionBar.transform.GetSiblingIndex());
+				Debug.Log("ec active: " + editableContainer.activeInHierarchy);
+				foreach (Transform child in editableContainer.transform)
+				{
+					Debug.Log(child.name + "active: " + child.gameObject.activeInHierarchy);
+				}
+			}
+		}
+		else
+		{
+			Debug.Log("Action disable");
+		}
+
+		keyboardPrefab = null;
+	}
+
+	private bool checkAction(string action)
+    {
+		actionContainer = mainCanvas.transform.Find("Panel").gameObject;
+		return actionContainer.transform.Find(action).gameObject.activeInHierarchy;
+	}
+
+	private string getActionKey(BaseElement action)
+	{
+		if (action is BasicAction)
+			return ((BasicAction)action).actionType.ToString();
+		else if (action is IfAction)
+			return "If";
+		else if (action is ForAction)
+			return "For";
+		else if (action is WhileAction)
+			return "While";
+		else
+			return null;
 	}
 
 	private IEnumerator updatePlayButton(){
