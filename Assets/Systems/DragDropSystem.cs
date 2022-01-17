@@ -295,7 +295,7 @@ public class DragDropSystem : FSystem
 				itemKeyboard = UnityEngine.Object.Instantiate<GameObject>(keyboardPrefab);
 				//transfert forward to editable container
 				itemKeyboard.transform.SetParent(editableContainer.transform);
-				itemKeyboard.transform.SetSiblingIndex(editableContainer.transform.GetSiblingIndex()+1);
+				itemKeyboard.transform.SetSiblingIndex(positionBar.transform.GetSiblingIndex());
 				Debug.Log("ec active: " + editableContainer.activeInHierarchy);
 				foreach (Transform child in editableContainer.transform)
 				{
