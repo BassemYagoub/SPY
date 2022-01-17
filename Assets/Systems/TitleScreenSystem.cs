@@ -6,6 +6,7 @@ using System.IO;
 using TMPro;
 using System.Xml;
 using DIG.GBLXAPI;
+using System.Collections;
 
 
 /// <summary>
@@ -84,7 +85,7 @@ public class TitleScreenSystem : FSystem {
 					button.transform.Find("Button").GetChild(0).GetComponent<TextMeshProUGUI>().text = Path.GetFileNameWithoutExtension(gameData.levelList[key][i]);
 					int indice = i;
 					
-					button.transform.Find("Button").GetComponent<Button>().onClick.AddListener(delegate {  instance.LevelSendStatement(); launchLevel(key, indice);  });
+					button.transform.Find("Button").GetComponent<Button>().onClick.AddListener(delegate {  instance.LevelSendStatement();MainLoop.instance.StartCoroutine( launchLevel_delay(key, indice));  });
 
 					levelButtons[directoryButton].Add(button);
 					GameObjectManager.bind(button);
@@ -178,8 +179,14 @@ public class TitleScreenSystem : FSystem {
 	}
 
 	public void launchLevel(string levelDirectory, int level){
+		
 		gameData.levelToLoad = (levelDirectory,level);
 		GameObjectManager.loadScene("MainScene");
+	}
+	public IEnumerator launchLevel_delay(string levelDirectory, int level){
+		yield return null;
+		yield return null;
+		launchLevel(levelDirectory,level);
 	}
 
 	// See Retour button in editor
