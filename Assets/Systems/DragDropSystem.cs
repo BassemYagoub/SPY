@@ -32,9 +32,10 @@ public class DragDropSystem : FSystem
 	private GameObject buttonPlayFast;
 
 	//keyboard shortcut
+	private Family draggableElement = FamilyManager.getFamily(new AllOfComponents(typeof(ElementToDrag)));
 	private Dictionary<KeyCode, string> translation = new Dictionary<KeyCode, string>();
 	private GameObject itemKeyboard;
-
+	private GameObject keyboardPrefab;
 
 	public DragDropSystem()
 	{
@@ -216,60 +217,35 @@ public class DragDropSystem : FSystem
 			Debug.Log("test forward: " + checkAction("Forward"));
             if (checkAction("Forward"))
 			{
-				/*
-				GameObject go = libraryElementPointed_f.First();
-				GameObject prefab = go.GetComponent<ElementToDrag>().actionPrefab;
-				// Create a dragged GameObject
-				itemKeyboard = UnityEngine.Object.Instantiate<GameObject>(prefab, go.transform);
-				BaseElement action = itemKeyboard.GetComponent<BaseElement>();
-				if (action.GetType().ToString().Equals("ForAction"))
+				foreach (GameObject go in draggableElement)
 				{
-					TMP_InputField input = itemKeyboard.GetComponentInChildren<TMP_InputField>();
-					input.onEndEdit.AddListener(delegate { onlyPositiveInteger(input); });
-				}
-				itemKeyboard.GetComponent<UIActionType>().prefab = prefab;
-				itemKeyboard.GetComponent<UIActionType>().linkedTo = go;
-				action.target = itemKeyboard;
-				GameObjectManager.bind(itemKeyboard);
-				GameObjectManager.addComponent<Dragged>(itemKeyboard);
-				// exclude this GameObject from the EventSystem
-				itemKeyboard.GetComponent<Image>().raycastTarget = false;
-				if (itemKeyboard.GetComponent<BasicAction>())
-					foreach (Image child in itemKeyboard.GetComponentsInChildren<Image>())
-						child.raycastTarget = false;
-				*/
-
-
-
-
-				// Create a dragged GameObject
-				GameObject gameAction = mainCanvas.transform.Find("Panel").Find("Forward").gameObject;
-				//itemKeyboard = UnityEngine.Object.Instantiate<GameObject>(gameAction);
-				itemKeyboard = gameAction;
-
-				//transfert forward to editable container
-				Debug.Log("Action enable");
-                itemKeyboard.transform.SetParent(editableContainer.transform);
-				itemKeyboard.transform.SetSiblingIndex(editableContainer.transform.GetSiblingIndex());
-				Debug.Log("ec active: " + editableContainer.activeInHierarchy);
-				foreach (Transform child in editableContainer.transform)
-				{
-					Debug.Log(child.name + "active: " + child.gameObject.activeInHierarchy);
+					// get prefab associated to this draggable element
+					GameObject prefab = go.GetComponent<ElementToDrag>().actionPrefab;
+					// get action key depending on prefab type
+					string key = getActionKey(prefab.GetComponent<BaseElement>());
+					Debug.Log("ActionKey: " + key);
+                    if (key.Equals("Forward"))
+                    {
+						Debug.Log("This one");
+						keyboardPrefab = prefab;
+                    }
 				}
 
+				// Create a dragged GameObject
+				if(keyboardPrefab != null)
+                {
+					itemKeyboard = UnityEngine.Object.Instantiate<GameObject>(keyboardPrefab);
+					//transfert forward to editable container
+					itemKeyboard.transform.SetParent(editableContainer.transform);
+					itemKeyboard.transform.SetSiblingIndex(editableContainer.transform.GetSiblingIndex());
+					Debug.Log("ec active: " + editableContainer.activeInHierarchy);
+					foreach (Transform child in editableContainer.transform)
+					{
+						Debug.Log(child.name + "active: " + child.gameObject.activeInHierarchy);
+					}
+				}
 
-				
-				// update limit bloc
-				foreach (BaseElement actChild in itemKeyboard.GetComponentsInChildren<BaseElement>())
-					GameObjectManager.addComponent<Dropped>(actChild.gameObject);
-
-				GameObjectManager.removeComponent<Dragged>(itemKeyboard);
-
-				if (itemKeyboard.GetComponent<UITypeContainer>())
-					itemKeyboard.GetComponent<Image>().raycastTarget = true;
-				editableContainer.transform.parent.parent.GetComponent<AudioSource>().Play();
-				refreshUI();
-				
+				keyboardPrefab = null;
 			}
             else
             {
@@ -296,6 +272,20 @@ public class DragDropSystem : FSystem
     {
 		actionContainer = mainCanvas.transform.Find("Panel").gameObject;
 		return actionContainer.transform.Find(action).gameObject.activeInHierarchy;
+	}
+
+	private string getActionKey(BaseElement action)
+	{
+		if (action is BasicAction)
+			return ((BasicAction)action).actionType.ToString();
+		else if (action is IfAction)
+			return "If";
+		else if (action is ForAction)
+			return "For";
+		else if (action is WhileAction)
+			return "While";
+		else
+			return null;
 	}
 
 	private IEnumerator updatePlayButton(){
