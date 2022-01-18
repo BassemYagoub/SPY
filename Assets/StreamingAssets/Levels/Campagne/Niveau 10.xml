@@ -8,32 +8,46 @@
       <row value="1" />
       <row value="1" />
       <row value="1" />
+      <row value="1" />
     </line>
     <line>
       <row value="1" />
+      <row value="1" />
+      <row value="1" />
+      <row value="0" />
+      <row value="1" />
+      <row value="1" />
+      <row value="1" />
+    </line>
+    <line>
+      <row value="1" />
+      <row value="1" />
+      <row value="1" />
+      <row value="0" />
+      <row value="1" />
+      <row value="1" />
+      <row value="1" />
+    </line>
+    <line>
+      <row value="1" />
+      <row value="0" />
+      <row value="0" />
       <row value="0" />
       <row value="0" />
       <row value="3" />
       <row value="1" />
+    </line>
+    <line>
+      <row value="1" />
+      <row value="1" />
+      <row value="1" />
+      <row value="0" />
+      <row value="1" />
+      <row value="1" />
       <row value="1" />
     </line>
     <line>
       <row value="1" />
-      <row value="0" />
-      <row value="0" />
-      <row value="0" />
-      <row value="0" />
-      <row value="1" />
-    </line>
-    <line>
-      <row value="1" />
-      <row value="0" />
-      <row value="0" />
-      <row value="0" />
-      <row value="1" />
-      <row value="1" />
-    </line>
-    <line>
       <row value="1" />
       <row value="1" />
       <row value="2" />
@@ -48,11 +62,11 @@
       <row value="1" />
       <row value="1" />
       <row value="1" />
+      <row value="1" />
     </line>
-
   </map>
-  <dialogs dialog="Attention !&#xA;Il y a un drone équipé d'une caméra de sécurité ici !"/>
-  <dialogs dialog ="Tu peux voir son champ de vision en rouge.&#xA;Faufile toi sans te faire repérer !"/>
+  <dialogs dialog="Tu à regagner l'usage de l'action faire un demi-tour." img="TurnBackIcon.png" />
+  <dialogs dialog="Attention !&#xA;Quand le robot tourne, il reste sur place." />
   <actionBlocLimit>
     <limit actionType="Forward" limit="-1" />
     <limit actionType="TurnLeft" limit="-1" />
@@ -61,10 +75,17 @@
     <limit actionType="Activate" limit="-1" />
     <limit actionType="TurnBack" limit="-1" />
     <limit actionType="If" limit="0" />
-    <limit actionType="For" limit="0" />
+    <limit actionType="For" limit="-1" />
     <limit actionType="While" limit="0" />
   </actionBlocLimit>
-  <player posX="4" posZ="2" direction="3" />
-  <enemy posX="2" posZ="4" direction="1" range="2" selfRange="False" typeRange="0" />
-  <score twoStars="3500" threeStars="4500"/>
+  <activable posX="3" posZ="1" direction="1">
+    <slot slot="0" />
+  </activable>
+  <activable posX="1" posZ="3" direction="3">
+    <slot slot="1" />
+  </activable>
+  <door posX="2" posZ="3" slot="0" direction="3" />
+  <door posX="3" posZ="4" slot="1" direction="1" />
+  <player posX="5" posZ="3" direction="2" />
+  <score twoStars="3249" threeStars="4249"/>
 </level>
