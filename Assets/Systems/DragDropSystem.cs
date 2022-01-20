@@ -212,18 +212,30 @@ public class DragDropSystem : FSystem
 
 		if (Input.GetKeyDown(KeyCode.Return))
 		{
-			keyboardActionEvent(KeyCode.Return);
-		}
-
-		else if (Input.GetKeyDown(KeyCode.Delete))
-		{
 			if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
 			{
-
+				buttonPlayFast.transform.GetComponent<Button>().onClick.Invoke();
 			}
 			else
 			{
-				keyboardActionEvent(KeyCode.Delete);
+				buttonPlay.transform.GetComponent<Button>().onClick.Invoke();
+			}
+		}
+
+		else if (Input.GetKeyDown(KeyCode.Backspace))
+		{
+			Debug.Log("deleeeeete");
+			if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+			{
+				GameObject.Find("ResetButton").GetComponent<Button>().onClick.Invoke();
+			}
+			else
+			{
+				Transform toDelete = editableContainer.transform.GetChild(positionBar.transform.GetSiblingIndex() - 1);
+				if(toDelete != null)
+                {
+					UnityEngine.Object.Destroy(toDelete.gameObject);
+                }
 			}
 		}
 		else
