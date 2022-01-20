@@ -49,7 +49,6 @@ public class DragDropSystem : FSystem
 			buttonPlayFast = GameObject.Find("SpeedButton");
 
 			//Translate keyEvent into action
-			translation.Add(KeyCode.KeypadEnter, "ExecuteButton");
 			translation.Add(KeyCode.UpArrow, "Forward");
 			translation.Add(KeyCode.LeftArrow, "TurnLeft");
 			translation.Add(KeyCode.RightArrow, "TurnRight");
@@ -125,8 +124,8 @@ public class DragDropSystem : FSystem
             if (targetContainer)
             {
                 // default put position Bar last
-                positionBar.transform.SetParent(targetContainer.transform);
-				positionBar.transform.SetSiblingIndex(targetContainer.transform.childCount + 1);
+                //positionBar.transform.SetParent(targetContainer.transform);
+				//positionBar.transform.SetSiblingIndex(targetContainer.transform.childCount + 1);
                 if (actionPointed_f.Count > 0)
                 {
                     // get focused item and adjust position bar depending on mouse position
@@ -152,8 +151,8 @@ public class DragDropSystem : FSystem
         }
         else
         {
-            positionBar.transform.SetParent(editableContainer.transform);
-            positionBar.transform.SetSiblingIndex(editableContainer.transform.childCount + 1);
+            //positionBar.transform.SetParent(editableContainer.transform);
+            //positionBar.transform.SetSiblingIndex(editableContainer.transform.childCount + 1);
         }	
 
 
@@ -209,51 +208,86 @@ public class DragDropSystem : FSystem
 
             lastClickTime = Time.time;
 			MainLoop.instance.StartCoroutine(updatePlayButton());
-        }
-
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-		{
-			keyboardActionEvent(KeyCode.UpArrow);
 		}
 
-		if (Input.GetKeyDown(KeyCode.LeftArrow))
+		if (Input.GetKeyDown(KeyCode.Return))
 		{
-			keyboardActionEvent(KeyCode.LeftArrow);
+			keyboardActionEvent(KeyCode.Return);
 		}
 
-		if (Input.GetKeyDown(KeyCode.RightArrow))
+		else if (Input.GetKeyDown(KeyCode.Delete))
 		{
-			keyboardActionEvent(KeyCode.RightArrow);
-		}
+			if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+			{
 
-		if (Input.GetKeyDown(KeyCode.DownArrow))
-		{
-			keyboardActionEvent(KeyCode.DownArrow);
+			}
+			else
+			{
+				keyboardActionEvent(KeyCode.Delete);
+			}
 		}
-
-		if (Input.GetKeyDown(KeyCode.W))
+		else
 		{
-			keyboardActionEvent(KeyCode.W);
-		}
+			if (Input.GetKeyDown(KeyCode.UpArrow))
+			{
+				if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+				{
+					Debug.Log("Montes la baarre");
+					positionBar.transform.SetSiblingIndex(positionBar.transform.GetSiblingIndex() - 1);
+				}
+				else
+				{
+					keyboardActionEvent(KeyCode.UpArrow);
+				}
+			}
 
-		if (Input.GetKeyDown(KeyCode.X))
-		{
-			keyboardActionEvent(KeyCode.X);
-		}
+			if (Input.GetKeyDown(KeyCode.LeftArrow))
+			{
+				keyboardActionEvent(KeyCode.LeftArrow);
+			}
 
-		if (Input.GetKeyDown(KeyCode.C))
-		{
-			keyboardActionEvent(KeyCode.C);
-		}
+			if (Input.GetKeyDown(KeyCode.RightArrow))
+			{
+				keyboardActionEvent(KeyCode.RightArrow);
+			}
 
-		if (Input.GetKeyDown(KeyCode.B))
-		{
-			keyboardActionEvent(KeyCode.B);
-		}
+			if (Input.GetKeyDown(KeyCode.DownArrow))
+			{
+				if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+				{
+					Debug.Log("Descends la baarre");
+					positionBar.transform.SetSiblingIndex(positionBar.transform.GetSiblingIndex() + 1);
+				}
+				else
+                {
+					keyboardActionEvent(KeyCode.DownArrow);
+				}
+			}
 
-		if (Input.GetKeyDown(KeyCode.N))
-		{
-			keyboardActionEvent(KeyCode.N);
+			if (Input.GetKeyDown(KeyCode.W))
+			{
+				keyboardActionEvent(KeyCode.W);
+			}
+
+			if (Input.GetKeyDown(KeyCode.X))
+			{
+				keyboardActionEvent(KeyCode.X);
+			}
+
+			if (Input.GetKeyDown(KeyCode.C))
+			{
+				keyboardActionEvent(KeyCode.C);
+			}
+
+			if (Input.GetKeyDown(KeyCode.B))
+			{
+				keyboardActionEvent(KeyCode.B);
+			}
+
+			if (Input.GetKeyDown(KeyCode.N))
+			{
+				keyboardActionEvent(KeyCode.N);
+			}
 		}
 	}
 
