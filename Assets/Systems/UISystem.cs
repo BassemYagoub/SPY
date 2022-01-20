@@ -41,6 +41,9 @@ public class UISystem : FSystem {
 	private GameObject lastEditedScript;
 	private GameObject endPanel;
 	private GameObject executionCanvas;
+	private GameObject hidingScriptPanel;
+	private List<GameObject> hiddenScriptActions;
+	private GameObject buttonUndo;
 
 	public UISystem()
 	{
@@ -57,10 +60,15 @@ public class UISystem : FSystem {
 			buttonSpeed = executionCanvas.transform.Find("SpeedButton").gameObject;
 
 			buttonReset = GameObject.Find("ResetButton");
+			buttonUndo = GameObject.Find("UndoButton").gameObject;
+			GameObjectManager.setGameObjectState(buttonUndo, false);
 			endPanel = GameObject.Find("EndPanel");
 			GameObjectManager.setGameObjectState(endPanel.transform.parent.gameObject, false);
 			dialogPanel = GameObject.Find("DialogPanel");
 			GameObjectManager.setGameObjectState(dialogPanel.transform.parent.gameObject, false);
+			hidingScriptPanel = GameObject.Find("HidingScriptPanel");
+			GameObjectManager.setGameObjectState(hidingScriptPanel.transform.gameObject, false);
+			hiddenScriptActions = new List<GameObject>();
 
 			lilBot = GameObject.Find("LilBot").gameObject;
 
@@ -305,33 +313,41 @@ public class UISystem : FSystem {
 		}
 	}
 
-	public void undoResetScript() {
-		GameObject editableContainer = editableScriptContainer.First();
-		for (int i = 0; i < editableContainer.transform.childCount; i++) {
-			if (editableContainer.transform.GetChild(i).GetComponent<BaseElement>()) {
-			}
-
-		}
-		refreshUI();
-	}
-
 
 	// Empty the script window
 	// See ResetButton in editor
 	public void resetScript(bool refund = false){
 		GameObject editableContainer = editableScriptContainer.First();
-		List<GameObject> childrenInContainer = new List<GameObject>();
-		for (int i = 0 ; i < editableContainer.transform.childCount ; i++){
-			if(editableContainer.transform.GetChild(i).GetComponent<BaseElement>()){
-				childrenInContainer.Add(editableContainer.transform.GetChild(i).gameObject);
-				destroyScript(editableContainer.transform.GetChild(i).gameObject, refund);				
+
+		//if there is already script actions in trash bin --> destroy them for good and hide newly put actions in trash bin
+		if (hiddenScriptActions.Count > 0 && editableContainer.transform.childCount > 1) { //element 0 is positionBar
+			foreach (GameObject go in hiddenScriptActions) {
+				destroyScript(go, false);
 			}
-		
+			hiddenScriptActions.Clear();
 		}
+
+		for (int i = 0; i < editableContainer.transform.childCount; i++) {
+			if (editableContainer.transform.GetChild(i).GetComponent<BaseElement>()) {
+				//destroyScript(editableContainer.transform.GetChild(i).gameObject, refund);
+				HideScript(editableContainer.transform.GetChild(i).gameObject, refund);
+				GameObjectManager.setGameObjectParent(editableContainer.transform.GetChild(i).gameObject, hidingScriptPanel, true);
+			}
+		}
+
+		//if some actions were hidden => show button
+		if(hiddenScriptActions.Count > 0) {
+			GameObjectManager.setGameObjectState(buttonUndo, true);
+		}
+
 		refreshUI();
 	}
 
-	//Recursive script destroyer
+	/// <summary>
+	/// Destroy actions (if they are hidden, else hide them first, see <see cref="HideScript(GameObject, bool)"/>)
+	/// </summary>
+	/// <param name="go">gameObject to destroy</param>
+	/// <param name="refund">refund action or not</param>
 	private void destroyScript(GameObject go,  bool refund = false){
 		if(go.GetComponent<UIActionType>() != null){
 			if(!refund)
@@ -347,10 +363,57 @@ public class UISystem : FSystem {
 				}
 			}
 		}
-		go.transform.DetachChildren(); //would let all children in the hierarchy after destroying go
 
+		go.transform.DetachChildren(); //would let all children in the hierarchy after destroying go
 		GameObjectManager.unbind(go);
 		UnityEngine.Object.Destroy(go);
+	}
+
+	/// <summary>
+	/// Hide actions when using the bin
+	/// </summary>
+	/// <param name="go">gameObject to hide</param>
+	/// <param name="refund">refund action or not</param>
+	private void HideScript(GameObject go, bool refund = false) {
+		if (editableScriptContainer.First().transform.childCount > 1) { // button active only if there are actions in editableScriptContainer
+			if (go.GetComponent<UIActionType>() != null) {
+				if (!refund)
+					gameData.totalActionBloc++;
+				else
+					GameObjectManager.addComponent<AddOne>(go.GetComponent<UIActionType>().linkedTo);
+			}
+
+			if (go.GetComponent<Dropped>()) {
+				GameObjectManager.removeComponent<Dropped>(go);
+			}
+
+			foreach (Transform child in go.transform) {
+				if (child.GetComponent<BaseElement>()) {
+					HideScript(child.gameObject, refund);
+				}
+			}
+			
+			hiddenScriptActions.Add(go);
+		}
+	}
+
+	/// <summary>
+	/// Undo button: restore actions in editableScriptContainer deleted by using the bin
+	/// </summary>
+	public void UndoResetScript() {
+		GameObject editableContainer = editableScriptContainer.First();
+
+		foreach(GameObject go in hiddenScriptActions) {
+			if (go.transform.parent.name == "HidingScriptPanel") { //set parent back to editableScriptContainer only if go is not in another action (if, while...)
+				GameObjectManager.setGameObjectParent(go, editableContainer, true);
+			}
+			gameData.totalActionBloc--;
+			GameObjectManager.addComponent<Dropped>(go);
+		}
+
+		hiddenScriptActions.Clear();
+		GameObjectManager.setGameObjectState(buttonUndo, false);
+		refreshUI();
 	}
 
 	public Sprite getImageAsSprite(string path){
@@ -556,7 +619,12 @@ public class UISystem : FSystem {
 			UnityEngine.Object.Destroy(containerCopy);
 
 			//empty editable container
-			resetScript();
+			for (int i = 0; i < editableScriptContainer.First().transform.childCount; i++) {
+				if (editableScriptContainer.First().transform.GetChild(i).GetComponent<BaseElement>()) {
+					destroyScript(editableScriptContainer.First().transform.GetChild(i).gameObject, false);
+				}
+			}
+			//resetScript();
 
 			buttonPlay.GetComponent<AudioSource>().Play();
 			foreach(GameObject go in agents){

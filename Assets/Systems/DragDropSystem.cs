@@ -30,6 +30,7 @@ public class DragDropSystem : FSystem
 	
 	private GameObject buttonPlay;
 	private GameObject buttonPlayFast;
+	private GameObject buttonUndo;
 
 	//keyboard shortcut
 	private Family draggableElement = FamilyManager.getFamily(new AllOfComponents(typeof(ElementToDrag)));
@@ -46,7 +47,8 @@ public class DragDropSystem : FSystem
 			editableContainer = editableScriptContainer_f.First();
 			positionBar = editableContainer.transform.Find("PositionBar").gameObject;
 			buttonPlay = GameObject.Find("ExecuteButton");
-			buttonPlayFast = GameObject.Find("SpeedButton");
+			buttonPlayFast = GameObject.Find("SpeedButton"); 
+			buttonUndo = GameObject.Find("UndoButton");
 
 			//Translate keyEvent into action
 			translation.Add(KeyCode.KeypadEnter, "ExecuteButton");
@@ -193,6 +195,8 @@ public class DragDropSystem : FSystem
 				if(itemDragged.GetComponent<UITypeContainer>())
 					itemDragged.GetComponent<Image>().raycastTarget = true;
 				editableContainer.transform.parent.parent.GetComponent<AudioSource>().Play();
+
+				GameObjectManager.setGameObjectState(buttonUndo, false); //if new action, cannot undo a delete
 				refreshUI();
 			}
             // priority == null, means drop item outside editablePanel
