@@ -51,7 +51,6 @@ public class DragDropSystem : FSystem
 			buttonUndo = GameObject.Find("UndoButton");
 
 			//Translate keyEvent into action
-			translation.Add(KeyCode.KeypadEnter, "ExecuteButton");
 			translation.Add(KeyCode.UpArrow, "Forward");
 			translation.Add(KeyCode.LeftArrow, "TurnLeft");
 			translation.Add(KeyCode.RightArrow, "TurnRight");
@@ -127,8 +126,8 @@ public class DragDropSystem : FSystem
             if (targetContainer)
             {
                 // default put position Bar last
-                positionBar.transform.SetParent(targetContainer.transform);
-				positionBar.transform.SetSiblingIndex(targetContainer.transform.childCount + 1);
+                //positionBar.transform.SetParent(targetContainer.transform);
+				//positionBar.transform.SetSiblingIndex(targetContainer.transform.childCount + 1);
                 if (actionPointed_f.Count > 0)
                 {
                     // get focused item and adjust position bar depending on mouse position
@@ -154,8 +153,8 @@ public class DragDropSystem : FSystem
         }
         else
         {
-            positionBar.transform.SetParent(editableContainer.transform);
-            positionBar.transform.SetSiblingIndex(editableContainer.transform.childCount + 1);
+            //positionBar.transform.SetParent(editableContainer.transform);
+            //positionBar.transform.SetSiblingIndex(editableContainer.transform.childCount + 1);
         }	
 
 
@@ -213,51 +212,98 @@ public class DragDropSystem : FSystem
 
             lastClickTime = Time.time;
 			MainLoop.instance.StartCoroutine(updatePlayButton());
-        }
-
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-		{
-			keyboardActionEvent(KeyCode.UpArrow);
 		}
 
-		if (Input.GetKeyDown(KeyCode.LeftArrow))
+		if (Input.GetKeyDown(KeyCode.Return))
 		{
-			keyboardActionEvent(KeyCode.LeftArrow);
+			if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+			{
+				buttonPlayFast.transform.GetComponent<Button>().onClick.Invoke();
+			}
+			else
+			{
+				buttonPlay.transform.GetComponent<Button>().onClick.Invoke();
+			}
 		}
 
-		if (Input.GetKeyDown(KeyCode.RightArrow))
+		else if (Input.GetKeyDown(KeyCode.Backspace))
 		{
-			keyboardActionEvent(KeyCode.RightArrow);
+			Debug.Log("deleeeeete");
+			if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+			{
+				GameObject.Find("ResetButton").GetComponent<Button>().onClick.Invoke();
+			}
+			else
+			{
+				Transform toDelete = editableContainer.transform.GetChild(positionBar.transform.GetSiblingIndex() - 1);
+				if(toDelete != null)
+                {
+					UnityEngine.Object.Destroy(toDelete.gameObject);
+                }
+			}
 		}
-
-		if (Input.GetKeyDown(KeyCode.DownArrow))
+		else
 		{
-			keyboardActionEvent(KeyCode.DownArrow);
-		}
+			if (Input.GetKeyDown(KeyCode.UpArrow))
+			{
+				if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+				{
+					Debug.Log("Montes la baarre");
+					positionBar.transform.SetSiblingIndex(positionBar.transform.GetSiblingIndex() - 1);
+				}
+				else
+				{
+					keyboardActionEvent(KeyCode.UpArrow);
+				}
+			}
 
-		if (Input.GetKeyDown(KeyCode.W))
-		{
-			keyboardActionEvent(KeyCode.W);
-		}
+			if (Input.GetKeyDown(KeyCode.LeftArrow))
+			{
+				keyboardActionEvent(KeyCode.LeftArrow);
+			}
 
-		if (Input.GetKeyDown(KeyCode.X))
-		{
-			keyboardActionEvent(KeyCode.X);
-		}
+			if (Input.GetKeyDown(KeyCode.RightArrow))
+			{
+				keyboardActionEvent(KeyCode.RightArrow);
+			}
 
-		if (Input.GetKeyDown(KeyCode.C))
-		{
-			keyboardActionEvent(KeyCode.C);
-		}
+			if (Input.GetKeyDown(KeyCode.DownArrow))
+			{
+				if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+				{
+					Debug.Log("Descends la baarre");
+					positionBar.transform.SetSiblingIndex(positionBar.transform.GetSiblingIndex() + 1);
+				}
+				else
+                {
+					keyboardActionEvent(KeyCode.DownArrow);
+				}
+			}
 
-		if (Input.GetKeyDown(KeyCode.B))
-		{
-			keyboardActionEvent(KeyCode.B);
-		}
+			if (Input.GetKeyDown(KeyCode.W))
+			{
+				keyboardActionEvent(KeyCode.W);
+			}
 
-		if (Input.GetKeyDown(KeyCode.N))
-		{
-			keyboardActionEvent(KeyCode.N);
+			if (Input.GetKeyDown(KeyCode.X))
+			{
+				keyboardActionEvent(KeyCode.X);
+			}
+
+			if (Input.GetKeyDown(KeyCode.C))
+			{
+				keyboardActionEvent(KeyCode.C);
+			}
+
+			if (Input.GetKeyDown(KeyCode.B))
+			{
+				keyboardActionEvent(KeyCode.B);
+			}
+
+			if (Input.GetKeyDown(KeyCode.N))
+			{
+				keyboardActionEvent(KeyCode.N);
+			}
 		}
 	}
 
@@ -297,6 +343,7 @@ public class DragDropSystem : FSystem
 			if (keyboardPrefab != null)
 			{
 				itemKeyboard = UnityEngine.Object.Instantiate<GameObject>(keyboardPrefab);
+				GameObjectManager.bind(itemKeyboard);
 				//transfert forward to editable container
 				itemKeyboard.transform.SetParent(editableContainer.transform);
 				itemKeyboard.transform.SetSiblingIndex(positionBar.transform.GetSiblingIndex());
@@ -305,6 +352,22 @@ public class DragDropSystem : FSystem
 				{
 					Debug.Log(child.name + "active: " + child.gameObject.activeInHierarchy);
 				}
+
+				itemKeyboard.GetComponent<Image>().raycastTarget = true;
+				if (itemKeyboard.GetComponent<BasicAction>())
+					foreach (Image child in itemKeyboard.GetComponentsInChildren<Image>())
+						child.raycastTarget = true;
+
+				// update limit bloc
+				foreach (BaseElement actChild in itemKeyboard.GetComponentsInChildren<BaseElement>())
+					GameObjectManager.addComponent<Dropped>(actChild.gameObject);
+
+				GameObjectManager.removeComponent<Dragged>(itemKeyboard);
+
+				if (itemKeyboard.GetComponent<UITypeContainer>())
+					itemKeyboard.GetComponent<Image>().raycastTarget = true;
+				editableContainer.transform.parent.parent.GetComponent<AudioSource>().Play();
+				refreshUI();
 			}
 		}
 		else
