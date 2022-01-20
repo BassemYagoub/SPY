@@ -293,6 +293,7 @@ public class DragDropSystem : FSystem
 			if (keyboardPrefab != null)
 			{
 				itemKeyboard = UnityEngine.Object.Instantiate<GameObject>(keyboardPrefab);
+				GameObjectManager.bind(itemKeyboard);
 				//transfert forward to editable container
 				itemKeyboard.transform.SetParent(editableContainer.transform);
 				itemKeyboard.transform.SetSiblingIndex(positionBar.transform.GetSiblingIndex());
@@ -301,6 +302,22 @@ public class DragDropSystem : FSystem
 				{
 					Debug.Log(child.name + "active: " + child.gameObject.activeInHierarchy);
 				}
+
+				itemKeyboard.GetComponent<Image>().raycastTarget = true;
+				if (itemKeyboard.GetComponent<BasicAction>())
+					foreach (Image child in itemKeyboard.GetComponentsInChildren<Image>())
+						child.raycastTarget = true;
+
+				// update limit bloc
+				foreach (BaseElement actChild in itemKeyboard.GetComponentsInChildren<BaseElement>())
+					GameObjectManager.addComponent<Dropped>(actChild.gameObject);
+
+				GameObjectManager.removeComponent<Dragged>(itemKeyboard);
+
+				if (itemKeyboard.GetComponent<UITypeContainer>())
+					itemKeyboard.GetComponent<Image>().raycastTarget = true;
+				editableContainer.transform.parent.parent.GetComponent<AudioSource>().Play();
+				refreshUI();
 			}
 		}
 		else
