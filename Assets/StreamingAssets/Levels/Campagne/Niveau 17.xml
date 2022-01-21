@@ -5,88 +5,28 @@
       <row value="1" />
       <row value="1" />
       <row value="1" />
-      <row value="1" />
-      <row value="1" />
-      <row value="1" />
-      <row value="1" />
-      <row value="1" />
     </line>
     <line>
-      <row value="1" />
-      <row value="2" />
-      <row value="0" />
-      <row value="0" />
-      <row value="0" />
-      <row value="0" />
-      <row value="0" />
-      <row value="1" />
-    </line>
-    <line>
-      <row value="1" />
-      <row value="1" />
-      <row value="1" />
-      <row value="1" />
-      <row value="0" />
       <row value="1" />
       <row value="0" />
       <row value="1" />
     </line>
     <line>
-      <row value="1" />
-      <row value="1" />
-      <row value="1" />
-      <row value="1" />
-      <row value="0" />
-      <row value="1" />
-      <row value="0" />
-      <row value="1" />
-    </line>
-    <line>
-      <row value="1" />
-      <row value="1" />
-      <row value="1" />
-      <row value="1" />
-      <row value="0" />
-      <row value="0" />
-      <row value="0" />
-      <row value="1" />
-    </line>
-    <line>
-      <row value="1" />
-      <row value="1" />
-      <row value="1" />
-      <row value="1" />
-      <row value="0" />
-      <row value="1" />
-      <row value="0" />
-      <row value="1" />
-    </line>
-    <line>
-      <row value="1" />
-      <row value="1" />
-      <row value="1" />
-      <row value="1" />
-      <row value="0" />
-      <row value="0" />
-      <row value="0" />
-      <row value="1" />
-    </line>
-    <line>
-      <row value="1" />
-      <row value="1" />
-      <row value="1" />
-      <row value="1" />
-      <row value="1" />
       <row value="1" />
       <row value="3" />
       <row value="1" />
     </line>
     <line>
       <row value="1" />
+      <row value="0" />
       <row value="1" />
+    </line>
+    <line>
       <row value="1" />
+      <row value="2" />
       <row value="1" />
-      <row value="1" />
+    </line>
+    <line>
       <row value="1" />
       <row value="1" />
       <row value="1" />
@@ -94,35 +34,18 @@
   </map>
   <dialogs dialog="Regarde ! Il y a une pièce à récupérer. Ce n'est pas obligatoire mais elle pourrait te donner un meilleur score !" />
   <actionBlocLimit>
-    <limit actionType="Forward" limit="-1" />
-    <limit actionType="TurnLeft" limit="-1" />
-    <limit actionType="TurnRight" limit="-1" />
-    <limit actionType="Wait" limit="-1" />
-    <limit actionType="Activate" limit="-1" />
-    <limit actionType="TurnBack" limit="-1" />
+    <limit actionType="Forward" limit="1" />
+    <limit actionType="TurnLeft" limit="0" />
+    <limit actionType="TurnRight" limit="0" />
+    <limit actionType="Wait" limit="0" />
+    <limit actionType="Activate" limit="0" />
+    <limit actionType="TurnBack" limit="0" />
     <limit actionType="If" limit="0" />
-    <limit actionType="For" limit="-1" />
-    <limit actionType="While" limit="0" />
+    <limit actionType="For" limit="0" />
+    <limit actionType="While" limit="1" />
   </actionBlocLimit>
-  <coin posX="1" posZ="6" />
-  <player posX="1" posZ="1" direction="0" />
-  <enemy posX="4" posZ="6" direction="3" range="3" selfRange="False" typeRange="0">
-    <script>
-      <action actionType="Forever">
-        <action actionType="Wait"/>
-        <action actionType="Wait"/>
-        <action actionType="TurnLeft"/>
-        <action actionType="Wait"/>
-        <action actionType="Wait"/>
-        <action actionType="TurnLeft"/>
-        <action actionType="Wait"/>
-        <action actionType="Wait"/>
-        <action actionType="TurnRight"/>
-        <action actionType="Wait"/>
-        <action actionType="Wait"/>
-        <action actionType="TurnRight"/>
-      </action>
-    </script>
-  </enemy>
+  <coin posX="3" posZ="1" />
+  <coin posX="2" posZ="1" />
+  <player posX="4" posZ="1" direction="3" />
   <score twoStars="2499" threeStars="9153"/>
 </level>

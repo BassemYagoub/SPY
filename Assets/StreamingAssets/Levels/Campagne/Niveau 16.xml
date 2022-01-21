@@ -7,29 +7,64 @@
       <row value="1" />
       <row value="1" />
       <row value="1" />
+      <row value="1" />
+      <row value="1" />
+      <row value="1" />
     </line>
     <line>
       <row value="1" />
       <row value="0" />
       <row value="0" />
+      <row value="0" />
+      <row value="1" />
+      <row value="0" />
+      <row value="0" />
+      <row value="1" />
+    </line>
+    <line>
+      <row value="1" />
+      <row value="0" />
+      <row value="0" />
+      <row value="0" />
+      <row value="0" />
+      <row value="0" />
+      <row value="0" />
+      <row value="1" />
+    </line>
+    <line>
+      <row value="1" />
       <row value="3" />
+      <row value="0" />
+      <row value="0" />
+      <row value="0" />
+      <row value="0" />
+      <row value="0" />
       <row value="1" />
     </line>
     <line>
       <row value="1" />
       <row value="0" />
-      <row value="1" />
+      <row value="0" />
+      <row value="0" />
+      <row value="0" />
+      <row value="0" />
       <row value="1" />
       <row value="1" />
     </line>
     <line>
+      <row value="1" />
       <row value="1" />
       <row value="2" />
-      <row value="1" />
-      <row value="1" />
+      <row value="0" />
+      <row value="0" />
+      <row value="0" />
+      <row value="0" />
       <row value="1" />
     </line>
     <line>
+      <row value="1" />
+      <row value="1" />
+      <row value="1" />
       <row value="1" />
       <row value="1" />
       <row value="1" />
@@ -38,26 +73,35 @@
     </line>
   </map>
   <actionBlocLimit>
-    <limit actionType="Forward" limit="-1" />
-    <limit actionType="TurnLeft" limit="-1" />
-    <limit actionType="TurnRight" limit="-1" />
-    <limit actionType="Wait" limit="-1" />
-    <limit actionType="Activate" limit="-1" />
-    <limit actionType="TurnBack" limit="-1" />
-    <limit actionType="If" limit="0" />
-    <limit actionType="For" limit="-1" />
+    <limit actionType="Forward" limit="1" />
+    <limit actionType="TurnLeft" limit="1" />
+    <limit actionType="TurnRight" limit="1" />
+    <limit actionType="Wait" limit="0" />
+    <limit actionType="Activate" limit="0" />
+    <limit actionType="TurnBack" limit="1" />
+    <limit actionType="If" limit="2" />
+    <limit actionType="For" limit="1" />
     <limit actionType="While" limit="0" />
   </actionBlocLimit>
-  <player posX="3" posZ="1" direction="3" />
-  <enemy posX="1" posZ="1" direction="2" range="1" selfRange="False" typeRange="0">
+  <player posX="5" posZ="2" direction="0" />
+  <enemy posX="2" posZ="2" direction="2" range="0" selfRange="True" typeRange="0">
     <script>
       <action actionType="Forever">
-        <action actionType="Wait"/>
-        <action actionType="Wait"/>
         <action actionType="TurnLeft"/>
-        <action actionType="Wait"/>
-        <action actionType="Wait"/>
-        <action actionType="TurnRight"/>
+      </action>
+    </script>
+  </enemy>
+  <enemy posX="3" posZ="3" direction="2" range="0" selfRange="True" typeRange="0">
+    <script>
+      <action actionType="Forever">
+        <action actionType="TurnLeft"/>
+      </action>
+    </script>
+  </enemy>
+  <enemy posX="5" posZ="5" direction="2" range="0" selfRange="True" typeRange="0">
+    <script>
+      <action actionType="Forever">
+        <action actionType="TurnLeft"/>
       </action>
     </script>
   </enemy>

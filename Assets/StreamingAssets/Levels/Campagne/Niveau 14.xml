@@ -17,23 +17,9 @@
     </line>
     <line>
       <row value="1" />
-      <row value="0" />
-      <row value="1" />
-      <row value="3" />
-      <row value="1" />
-    </line>
-    <line>
-      <row value="1" />
-      <row value="0" />
-      <row value="0" />
-      <row value="0" />
-      <row value="1" />
-    </line>
-    <line>
-      <row value="1" />
-      <row value="1" />
       <row value="2" />
-      <row value="1" />
+      <row value="0" />
+      <row value="3" />
       <row value="1" />
     </line>
     <line>
@@ -48,19 +34,17 @@
     <limit actionType="Forward" limit="-1" />
     <limit actionType="TurnLeft" limit="-1" />
     <limit actionType="TurnRight" limit="-1" />
-    <limit actionType="Wait" limit="-1" />
-    <limit actionType="Activate" limit="-1" />
-    <limit actionType="TurnBack" limit="-1" />
-    <limit actionType="If" limit="0" />
-    <limit actionType="For" limit="-1" />
+    <limit actionType="Wait" limit="0" />
+    <limit actionType="Activate" limit="0" />
+    <limit actionType="TurnBack" limit="0" />
+    <limit actionType="If" limit="1" />
+    <limit actionType="For" limit="0" />
     <limit actionType="While" limit="0" />
   </actionBlocLimit>
-  <player posX="4" posZ="2" direction="3" />
-  <enemy posX="3" posZ="1" direction="0" range="1" selfRange="False" typeRange="0">
+  <player posX="2" posZ="1" direction="3" />
+  <enemy posX="2" posZ="2" direction="1" range="0" selfRange="True" typeRange="0">
     <script>
       <action actionType="Forever">
-        <action actionType="Forward"/>
-        <action actionType="Forward"/>
         <action actionType="TurnLeft"/>
       </action>
     </script>
