@@ -12,6 +12,7 @@ public class SendStatements : FSystem {
     private Family f_actionForLRS = FamilyManager.getFamily(new AllOfComponents(typeof(ActionPerformedForLRS)));
 
     public static SendStatements instance ;
+    public static int LevelIndice;
 
     public SendStatements()
     {
@@ -316,17 +317,61 @@ public class SendStatements : FSystem {
         });
    	
    }
-   public void LevelSendStatement(){
+   public static DateTime TimestartLevel;
+   public void LevelSendStatement(int i){
    	
-	   	Debug.Log("player  { "+GBL_Interface.playerName + " } click on Level .....Level Stared ");
+   	        LevelIndice = i;
+   	        TimestartLevel = DateTime.Now;
+	   	Debug.Log("player  { "+GBL_Interface.playerName + " } click on Level [ "+i+" ].....Level Stared at  [ "+TimestartLevel+" ]");
 		GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
 		{
 		    verb = "interacted",
 		    objectType = "menu",
-		    objectName = "Grp4_B.R.S :  Player {"+GBL_Interface.playerName+" }  click on Level ....Level Started  at date [ "
+		    objectName = "Grp4_B.R.S :  Player {"+GBL_Interface.playerName+" }  click on Level [ "+i+" ]   ....Level Started  at date [  "+ DateTime.Now.ToString("dd/MM/yyyy")+" ] Time : [ "+DateTime.Now.ToString("hh : mm :ss")+" ]",
 	 
 		});
    	
        } 
-    
+  public void NextLevelSendStatement(){
+  		LevelIndice +=1;
+  		TimestartLevel = DateTime.Now;
+	   	Debug.Log("player  { "+GBL_Interface.playerName + " } click on buttonNextLevel [ "+LevelIndice+" ].....Level Stared at  [ "+TimestartLevel+" ]");
+		GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
+		{
+		    verb = "interacted",
+		    objectType = "menu",
+		    objectName = "Grp4_B.R.S :  Player {"+GBL_Interface.playerName+" }  click on buttonNextLevel [ "+LevelIndice+" ]   ....Level Started  at date [  "+ DateTime.Now.ToString("dd/MM/yyyy")+" ] Time : [ "+DateTime.Now.ToString("hh : mm :ss")+" ]",
+	 
+		});
+   	
+       } 
+       
+   public static DateTime TimeEndLevel;
+   public void EndLevelSendStatement(){
+        	TimeEndLevel = DateTime.Now;
+   	        Debug.Log(" time end of level : "+TimeEndLevel);
+	   	Debug.Log("player  { "+GBL_Interface.playerName + " } completed Level [ "+(LevelIndice)+" ]....Congratulations ! ");
+		GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
+		{
+		    verb = "interacted",
+		    objectType = "menu",
+		    objectName = "Grp4_B.R.S :  Player {"+GBL_Interface.playerName+" }  completed Level [ "+LevelIndice+" ]   ....  at date [  "+ DateTime.Now.ToString("dd/MM/yyyy")+" ] Time : [ "+DateTime.Now.ToString("hh : mm :ss")+" ] Congratulations ! ",
+	 
+		});
+   	
+       } 
+       
+   public void LevelDuration(){
+   	System.TimeSpan diff = TimeEndLevel.Subtract(TimestartLevel);
+   	Debug.Log(" LevelTimeDUration : [ "+diff+"  ]");
+   	Debug.Log("Player { "+GBL_Interface.playerName + " } time duration in level "+LevelIndice);
+        GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
+        {
+            verb = "completed",
+            objectType = "menu",
+            objectName = "Grp4_B.R.S :  Player {"+GBL_Interface.playerName+" } time duration in level "+LevelIndice+" is :  [ "+diff+"  ]",
+ 
+        });
+   	
+   }
 }

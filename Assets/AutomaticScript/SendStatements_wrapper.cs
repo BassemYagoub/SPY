@@ -104,9 +104,24 @@ public class SendStatements_wrapper : MonoBehaviour
 		MainLoop.callAppropriateSystemMethod ("SendStatements", "ResetlSendStatement", null);
 	}
 
-	public void LevelSendStatement()
+	public void LevelSendStatement(System.Int32 i)
 	{
-		MainLoop.callAppropriateSystemMethod ("SendStatements", "LevelSendStatement", null);
+		MainLoop.callAppropriateSystemMethod ("SendStatements", "LevelSendStatement", i);
+	}
+
+	public void NextLevelSendStatement()
+	{
+		MainLoop.callAppropriateSystemMethod ("SendStatements", "NextLevelSendStatement", null);
+	}
+
+	public void EndLevelSendStatement()
+	{
+		MainLoop.callAppropriateSystemMethod ("SendStatements", "EndLevelSendStatement", null);
+	}
+
+	public void LevelDuration()
+	{
+		MainLoop.callAppropriateSystemMethod ("SendStatements", "LevelDuration", null);
 	}
 
 }

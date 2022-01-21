@@ -12,10 +12,11 @@ public class EndGameManager : FSystem {
 	private Family exitGO = FamilyManager.getFamily(new AllOfComponents(typeof(Position), typeof(AudioSource)), new AnyOfTags("Exit"));
     private Family endpanel_f = FamilyManager.getFamily(new AllOfComponents(typeof(Image), typeof(AudioSource)), new AnyOfTags("endpanel"));
 	private GameObject endPanel;
-
+        private SendStatements instance = new  SendStatements() ;
 	public EndGameManager(){
 		if (Application.isPlaying)
 		{
+			 
 			newCurrentAction_f.addExitCallback(onCurrentActionRemoved);
 			endPanel = endpanel_f.First();
 		}
@@ -55,6 +56,9 @@ public class EndGameManager : FSystem {
 						if (nbEnd >= playerGO.Count)
 							// trigger end
 							GameObjectManager.addComponent<NewEnd>(endPanel, new { endType = NewEnd.Win });
+							Debug.Log("niveau fini");
+							instance.EndLevelSendStatement();
+							instance.LevelDuration();
 					}
 				}				
 			}				
