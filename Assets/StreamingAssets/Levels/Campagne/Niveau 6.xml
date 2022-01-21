@@ -10,16 +10,16 @@
     </line>
     <line>
       <row value="1" />
-      <row value="1" />
-      <row value="1" />
+      <row value="0" />
+      <row value="0" />
       <row value="3" />
       <row value="1" />
     </line>
     <line>
       <row value="1" />
       <row value="0" />
-      <row value="0" />
-      <row value="0" />
+      <row value="1" />
+      <row value="1" />
       <row value="1" />
     </line>
     <line>
@@ -36,6 +36,7 @@
       <row value="1" />
       <row value="1" />
     </line>
+
   </map>
   <actionBlocLimit>
     <limit actionType="Forward" limit="-1" />
@@ -45,9 +46,9 @@
     <limit actionType="Activate" limit="0" />
     <limit actionType="TurnBack" limit="0" />
     <limit actionType="If" limit="0" />
-    <limit actionType="For" limit="0" />
+    <limit actionType="For" limit="1" />
     <limit actionType="While" limit="0" />
   </actionBlocLimit>
   <player posX="3" posZ="1" direction="3" />
-  <score twoStars="4142" threeStars="5142"/>
+  <score twoStars="4499" threeStars="5499"/>
 </level>
