@@ -82,8 +82,6 @@
       <row value="1" />
     </line>
   </map>
-   <dialogs dialog="Tu peux maintenant utiliser l'action Si. Elle permet d'effectuer certains ordres lorsque certaines conditions sont remplies." img="SiIcone.png" />
-   <dialogs dialog="Tu pourrais par exemple tourner si un mur se présente devant toi." img="ifExample.png"/>
   <actionBlocLimit>
     <limit actionType="Forward" limit="1" />
     <limit actionType="TurnLeft" limit="0" />
@@ -92,9 +90,10 @@
     <limit actionType="Activate" limit="0" />
     <limit actionType="TurnBack" limit="0" />
     <limit actionType="If" limit="1" />
-    <limit actionType="For" limit="1" />
-    <limit actionType="While" limit="0" />
+    <limit actionType="For" limit="0" />
+    <limit actionType="While" limit="1" />
   </actionBlocLimit>
+  <coin posX="6" posZ="6" />
   <player posX="3" posZ="3" direction="0" />
   <score twoStars="0" threeStars="5185"/>
 </level>
