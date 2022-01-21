@@ -5,78 +5,65 @@
       <row value="1" />
       <row value="1" />
       <row value="1" />
+      <row value="1" />
+      <row value="1" />
     </line>
     <line>
       <row value="1" />
       <row value="0" />
-      <row value="1" />
-    </line>
-    <line>
-      <row value="1" />
       <row value="3" />
-      <row value="1" />
-    </line>
-    <line>
-      <row value="1" />
       <row value="0" />
       <row value="1" />
     </line>
     <line>
       <row value="1" />
       <row value="0" />
-      <row value="1" />
-    </line>
-    <line>
-      <row value="1" />
+      <row value="0" />
       <row value="0" />
       <row value="1" />
     </line>
     <line>
       <row value="1" />
       <row value="0" />
-      <row value="1" />
-    </line>
-    <line>
-      <row value="1" />
+      <row value="0" />
       <row value="0" />
       <row value="1" />
     </line>
     <line>
       <row value="1" />
-      <row value="0" />
-      <row value="1" />
-    </line>
-    <line>
       <row value="1" />
       <row value="2" />
       <row value="1" />
+      <row value="1" />
     </line>
     <line>
+      <row value="1" />
+      <row value="1" />
       <row value="1" />
       <row value="1" />
       <row value="1" />
     </line>
   </map>
-  <dialogs dialog="La sortie est au bout de ce couloir ! Evitons de saturer la ligne de communication en donnant un ordre plus efficace."/>
-  <dialogs dialog="Utilise l'action Boucle, tu peux mettre des actions dans une boucle pour qu'elles soient répétées le nombre de fois indiqué !" img="forExample.png"/>
-  <dialogs dialog="Attention !&#xA;Tu dois t'arrêter pile sur la sortie." />
   <actionBlocLimit>
-    <limit actionType="Forward" limit="1" />
-    <limit actionType="TurnLeft" limit="0" />
-    <limit actionType="TurnRight" limit="0" />
-    <limit actionType="Wait" limit="0" />
-    <limit actionType="Activate" limit="0" />
-    <limit actionType="TurnBack" limit="0" />
+    <limit actionType="Forward" limit="-1" />
+    <limit actionType="TurnLeft" limit="-1" />
+    <limit actionType="TurnRight" limit="-1" />
+    <limit actionType="Wait" limit="1" />
+    <limit actionType="Activate" limit="-1" />
+    <limit actionType="TurnBack" limit="-1" />
     <limit actionType="If" limit="0" />
-    <limit actionType="For" limit="1" />
+    <limit actionType="For" limit="-1" />
     <limit actionType="While" limit="0" />
   </actionBlocLimit>
-  <player posX="9" posZ="1" direction="3">
+  <player posX="4" posZ="2" direction="3" />
+  <enemy posX="2" posZ="1" direction="0" range="2" selfRange="True" typeRange="0">
     <script>
-      <action actionType="For" nbFor="2">
-        <action actionType="Forward"/>
-      </action>
-    </script>   
-  </player>
-  <score twoStars="0" threeStars="6888"/>
+        <action actionType="For" nbFor="-1">
+            <action actionType="Forward"/>
+            <action actionType="Forward"/>
+            <action actionType="TurnRight"/>
+        </action>
+    </script>
+  </enemy>
+  <score twoStars="4142" threeStars="5142"/>
 </level>
