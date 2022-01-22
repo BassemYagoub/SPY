@@ -374,4 +374,16 @@ public class SendStatements : FSystem {
         });
    	
    }
+   public void BackToMenuAfterLevelSendStatement(){
+   	
+   	 Debug.Log("player  { "+GBL_Interface.playerName + " } click on button Back To menu After end of Level "+LevelIndice);
+        GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
+        {
+            verb = "interacted",
+            objectType = "menu",
+            objectName = "Grp4_B.R.S :  Player {"+GBL_Interface.playerName+" }  click on button Back To menu After end of Level "+LevelIndice+" at date [ "+ DateTime.Now.ToString("dd/MM/yyyy")+" ] Time : [ "+DateTime.Now.ToString("hh : mm :ss")+" ]",
+ 
+        });
+   	
+   }
 }
