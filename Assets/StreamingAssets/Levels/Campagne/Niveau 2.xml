@@ -33,7 +33,7 @@
     </line>
   </map>
   <dialogs dialog="Quand je disais sortie, je parlais en fait de monter d'un niveau.&#xA;J'imagine qu'on en aura de nombreux à monter pour s'échapper." />
-  <dialogs dialog="Au fait, tu peux déplacer ta caméra en utilisant les touches Z,Q,S,D ou les flèches directionnelles du clavier." />
+  <dialogs dialog="Au fait, tu peux déplacer ta caméra en utilisant les touches Z,Q,S,D." />
   <dialogs dialog="Pour zoomer ou dézoomer, utilise la molette de la souris." />
   <actionBlocLimit>
     <limit actionType="Forward" limit="-1" />

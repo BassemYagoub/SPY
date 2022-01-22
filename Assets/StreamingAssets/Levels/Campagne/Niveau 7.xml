@@ -27,6 +27,9 @@
       <row value="1" />
     </line>
   </map>
+  <dialogs dialog="Face contre le mur ? Se retourner peut être une bonne solution." />
+  <dialogs dialog="Tu à regagner l'usage de l'action faire un demi-tour." img="TurnBackIcon.png" />
+  <dialogs dialog="Attention !&#xA;Quand le robot tourne, il reste sur place." />
   <actionBlocLimit>
     <limit actionType="Forward" limit="-1" />
     <limit actionType="TurnLeft" limit="0" />
