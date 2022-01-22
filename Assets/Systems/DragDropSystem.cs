@@ -344,6 +344,7 @@ public class DragDropSystem : FSystem
 			{
 				itemKeyboard = UnityEngine.Object.Instantiate<GameObject>(keyboardPrefab);
 				GameObjectManager.bind(itemKeyboard);
+				GameObjectManager.addComponent<Dragged>(itemKeyboard);
 				//transfert forward to editable container
 				itemKeyboard.transform.SetParent(editableContainer.transform);
 				itemKeyboard.transform.SetSiblingIndex(positionBar.transform.GetSiblingIndex());
