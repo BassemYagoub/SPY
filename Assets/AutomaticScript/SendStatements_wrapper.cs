@@ -124,6 +124,11 @@ public class SendStatements_wrapper : MonoBehaviour
 		MainLoop.callAppropriateSystemMethod ("SendStatements", "LevelDuration", null);
 	}
 
+	public void TotalActionInLevel()
+	{
+		MainLoop.callAppropriateSystemMethod ("SendStatements", "TotalActionInLevel", null);
+	}
+
 	public void BackToMenuAfterLevelSendStatement()
 	{
 		MainLoop.callAppropriateSystemMethod ("SendStatements", "BackToMenuAfterLevelSendStatement", null);

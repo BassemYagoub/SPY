@@ -22,25 +22,12 @@ public class TitleScreenSystem : FSystem {
 	private Dictionary<GameObject, List<GameObject>> levelButtons; //key = directory button,  value = list of level buttons
 	private GameObject mainLoop;
         private SendStatements instance = new  SendStatements() ;
-        
 
         void TaskWithParameters(string message)
         {
 		//Output this to console when the Button2 is clicked
 		Debug.Log(message);
         }
-        /*public void LevelSendStatement(){
-   	
-	   	Debug.Log("player  { "+GBL_Interface.playerName + " } click on Level .....Level Stared ");
-		GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
-		{
-		    verb = "interacted",
-		    objectType = "menu",
-		    objectName = "Grp4_B.R.S :  Player {"+GBL_Interface.playerName+" }  click on Level ....Level Started  at date [ "
-	 
-		});
-   	
-       }*/
 	public TitleScreenSystem(){
 		if (Application.isPlaying)
 		{
@@ -84,7 +71,6 @@ public class TitleScreenSystem : FSystem {
 					GameObject button = Object.Instantiate<GameObject>(Resources.Load("Prefabs/LevelButton") as GameObject, cList.transform);
 					button.transform.Find("Button").GetChild(0).GetComponent<TextMeshProUGUI>().text = Path.GetFileNameWithoutExtension(gameData.levelList[key][i]);
 					int indice = i;
-					
 					button.transform.Find("Button").GetComponent<Button>().onClick.AddListener(delegate {  instance.LevelSendStatement(indice+1);
 					MainLoop.instance.StartCoroutine( launchLevel_delay(key, indice));  });
 
@@ -183,11 +169,11 @@ public class TitleScreenSystem : FSystem {
 	}
 
 	public void launchLevel(string levelDirectory, int level){
-		
 		gameData.levelToLoad = (levelDirectory,level);
 		GameObjectManager.loadScene("MainScene");
 	}
 	public IEnumerator launchLevel_delay(string levelDirectory, int level){
+		
 		yield return null;
 		yield return null;
 		launchLevel(levelDirectory,level);

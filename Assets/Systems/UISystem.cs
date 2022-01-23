@@ -538,7 +538,6 @@ public class UISystem : FSystem {
 		gameData.actionsHistory = null;
 		GameObjectManager.loadScene("TitleScreen");
 	}
-
 	// See NextLevel button in editor
 	public void nextLevel(){
 		gameData.levelToLoad.Item2++;
