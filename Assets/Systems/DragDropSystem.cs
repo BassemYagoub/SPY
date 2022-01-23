@@ -216,6 +216,8 @@ public class DragDropSystem : FSystem
 
 		if (Input.GetKeyDown(KeyCode.Return))
 		{
+			positionBar.transform.SetParent(editableContainer.transform);
+			positionBar.transform.SetSiblingIndex(editableContainer.transform.childCount - 1);
 			if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
 			{
 				buttonPlayFast.transform.GetComponent<Button>().onClick.Invoke();
