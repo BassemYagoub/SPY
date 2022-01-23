@@ -19,6 +19,8 @@ public class EndGameManager : FSystem {
 			 
 			newCurrentAction_f.addExitCallback(onCurrentActionRemoved);
 			endPanel = endpanel_f.First();
+			//GameObject.Find("endPanel").transform.GetChild(4).GetComponent<Button>().onClick.AddListener(delegate {instance.NextLevelSendStatement();MainLoop.instance.StartCoroutine(wait_delay()); });
+							
 		}
     }
 
@@ -59,9 +61,14 @@ public class EndGameManager : FSystem {
 							Debug.Log("niveau fini");
 							instance.EndLevelSendStatement();
 							instance.LevelDuration();
+							instance.TotalActionInLevel();
 					}
 				}				
 			}				
 		}
+	}
+	public IEnumerator wait_delay(){
+		yield return null;
+		yield return null;
 	}
 }

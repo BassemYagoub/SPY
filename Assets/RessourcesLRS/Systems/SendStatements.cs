@@ -13,7 +13,8 @@ public class SendStatements : FSystem {
 
     public static SendStatements instance ;
     public static int LevelIndice;
-
+    public static int nbAction=0;
+    public static int nbActionExec=0;
     public SendStatements()
     {
         if (Application.isPlaying)
@@ -144,7 +145,7 @@ public class SendStatements : FSystem {
    }
    
    public void TurnLeftSendStatement(){
-   	
+   	nbAction +=1;
    	 Debug.Log("player  { "+GBL_Interface.playerName + " } Drag&drop  TurnLeft instruction  ");
         GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
         {
@@ -157,7 +158,7 @@ public class SendStatements : FSystem {
    }
    
    public void TurnRightSendStatement(){
-   	
+   	nbAction +=1;
    	 Debug.Log("player  { "+GBL_Interface.playerName + " } Drag&drop  TurnRight instruction  ");
         GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
         {
@@ -169,7 +170,7 @@ public class SendStatements : FSystem {
    	
    }
     public void ForwardSendStatement(){
-   	
+   	nbAction +=1;
    	 Debug.Log("player  { "+GBL_Interface.playerName + " } Drag&drop  Forward instruction  ");
         GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
         {
@@ -181,7 +182,7 @@ public class SendStatements : FSystem {
    	
    }
     public void WaitSendStatement(){
-   	
+   	nbAction +=1;
    	 Debug.Log("player  { "+GBL_Interface.playerName + " } Drag&drop  Wait instruction  ");
         GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
         {
@@ -193,7 +194,7 @@ public class SendStatements : FSystem {
    	
    }
    public void ActivateSendStatement(){
-   	
+   	nbAction +=1;
    	 Debug.Log("player  { "+GBL_Interface.playerName + " } Drag&drop  Activate instruction  ");
         GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
         {
@@ -205,7 +206,7 @@ public class SendStatements : FSystem {
    	
    }
    public void TurnBackSendStatement(){
-   	
+   	nbAction +=1;
    	 Debug.Log("player  { "+GBL_Interface.playerName + " } Drag&drop  TurnBack instruction  ");
         GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
         {
@@ -217,7 +218,7 @@ public class SendStatements : FSystem {
    	
    }
    public void IFSendStatement(){
-   	
+   	nbAction +=1;
    	 Debug.Log("player  { "+GBL_Interface.playerName + " } Drag&drop  IF instruction  ");
         GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
         {
@@ -230,7 +231,7 @@ public class SendStatements : FSystem {
    }
    
    public void ForSendStatement(){
-   	
+   	nbAction +=1;
    	 Debug.Log("player  { "+GBL_Interface.playerName + " } Drag&drop  For instruction  ");
         GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
         {
@@ -243,7 +244,7 @@ public class SendStatements : FSystem {
    }
    
     public void WhileSendStatement(){
-   	
+   	 nbAction +=1;
    	 Debug.Log("player  { "+GBL_Interface.playerName + " } Drag&drop  While instruction  ");
         GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
         {
@@ -256,7 +257,7 @@ public class SendStatements : FSystem {
    }
    
    public void BackToMenuSendStatement(){
-   	
+   	TotalActionInLevel();
    	 Debug.Log("player  { "+GBL_Interface.playerName + " } click on button Back To menu");
         GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
         {
@@ -267,9 +268,10 @@ public class SendStatements : FSystem {
         });
    	
    }
-   
+  
   public void ExecuteSendStatement(){
-   	
+   	 nbActionExec +=nbAction ;
+   	 nbAction=0;
    	 Debug.Log("player  { "+GBL_Interface.playerName + " } click on button Execute ");
         GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
         {
@@ -294,6 +296,7 @@ public class SendStatements : FSystem {
    }
    
     public void RestartLevelSendStatement(){
+         TotalActionInLevel();
    	
    	 Debug.Log("player  { "+GBL_Interface.playerName + " } click on button Restart Level ");
         GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
@@ -350,7 +353,7 @@ public class SendStatements : FSystem {
    public void EndLevelSendStatement(){
         	TimeEndLevel = DateTime.Now;
    	        Debug.Log(" time end of level : "+TimeEndLevel);
-	   	Debug.Log("player  { "+GBL_Interface.playerName + " } completed Level [ "+(LevelIndice)+" ]....Congratulations ! ");
+	   	Debug.Log("player  { "+GBL_Interface.playerName + " } End Level [ "+(LevelIndice)+" ]");
 		GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
 		{
 		    verb = "interacted",
@@ -363,8 +366,7 @@ public class SendStatements : FSystem {
        
    public void LevelDuration(){
    	System.TimeSpan diff = TimeEndLevel.Subtract(TimestartLevel);
-   	Debug.Log(" LevelTimeDUration : [ "+diff+"  ]");
-   	Debug.Log("Player { "+GBL_Interface.playerName + " } time duration in level "+LevelIndice);
+   	Debug.Log("Player { "+GBL_Interface.playerName + " } time duration in level "+LevelIndice+" [ "+diff+"  ]");
         GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
         {
             verb = "completed",
@@ -372,6 +374,20 @@ public class SendStatements : FSystem {
             objectName = "Grp4_B.R.S :  Player {"+GBL_Interface.playerName+" } time duration in level "+LevelIndice+" is :  [ "+diff+"  ]",
  
         });
+   	
+   }
+    public void TotalActionInLevel(){
+   	
+   	Debug.Log("Player { "+GBL_Interface.playerName + " } Total Action  in level "+LevelIndice+" [ "+nbActionExec+"  ]");
+        GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
+        {
+            verb = "completed",
+            objectType = "menu",
+            objectName = "Grp4_B.R.S :  Player {"+GBL_Interface.playerName+" } Total Action  in level "+nbActionExec+" is :  [ "+nbAction+"  ]",
+ 
+        });
+        nbActionExec	 = 0;
+        nbAction  =0;
    	
    }
    public void BackToMenuAfterLevelSendStatement(){
