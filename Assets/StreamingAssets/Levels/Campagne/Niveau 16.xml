@@ -72,6 +72,8 @@
       <row value="1" />
     </line>
   </map>
+  <dialogs dialog="On dirait que ces patrouilleurs sont mals payés. Profitons de leur sieste pour nous amuser un peu !" />
+  <dialogs dialog="Essayes d'arriver au portail en frolant tous les murs qui dépassent et les patrouilleurs endormies." />
   <actionBlocLimit>
     <limit actionType="Forward" limit="1" />
     <limit actionType="TurnLeft" limit="1" />

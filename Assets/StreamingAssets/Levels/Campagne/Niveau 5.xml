@@ -29,6 +29,9 @@
       <row value="1" />
     </line>
   </map>
+  <dialogs dialog="Simplifiant l'execution en répétant les éléments." />
+  <dialogs dialog="'For' (Touche 'b') permet d'exécuter une sequence d'action plusieurs fois." img="forExample.png"/>
+  <dialogs dialog="Dans notre cas répeter l'action d'avancer peut être très utilse" img="forExample.png"/>
   <actionBlocLimit>
     <limit actionType="Forward" limit="1" />
     <limit actionType="TurnLeft" limit="0" />

@@ -83,8 +83,8 @@
       <row value="1" />
     </line>
   </map>
-  <dialogs dialog="Dans cette mission, vous avez deux agents que vous devez diriger vers la sortie. Malheureusement, nous ne pouvons pas nous permettre d'utiliser plusieurs communications, ils recevront donc les même ordres." />
-  <dialogs dialog="Pour cela, utilisez les particularités du terrain et ce que vous avez appris de vos précédentes missions pour ammener les deux agents à la sortie." />
+  <dialogs dialog="Un de tes frères se trouve à coté ! On dirait qu'il est trop amoché pour qu'il se créer ses propres instructions." />
+  <dialogs dialog="Tu n'as plus beaucoup d'énergie aussi! Essayes de nous faire sortir en lui envoyant tes instructions !" />
   <actionBlocLimit>
     <limit actionType="Forward" limit="1" />
     <limit actionType="TurnLeft" limit="1" />
@@ -96,6 +96,8 @@
     <limit actionType="For" limit="-1" />
     <limit actionType="While" limit="-1" />
   </actionBlocLimit>
+  <coin posX="1" posZ="2" />
+  <coin posX="1" posZ="5" />
   <player posX="7" posZ="2" direction="3" />
   <player posX="7" posZ="4" direction="3" />
   <score twoStars="4562" threeStars="4740"/>

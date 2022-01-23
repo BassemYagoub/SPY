@@ -65,7 +65,9 @@
       <row value="1" />
     </line>
   </map>
-  <dialogs dialog="Ceci est un niveau test ! " />
+  <dialogs dialog="Bravo! T'as réussi à t'échapper de la décharge !!" />
+  <dialogs dialog=" Je dois y retourner pour essayer d'aider tes autres frères ! En souvenir de notre belle aventure je te laisse ce dernier étage à terminer !" />
+  <dialogs dialog="Ce n'est qu'un au revoir !" />
   <!--<dialogs dialog="Pour cela, il faut donner des ordres au robot en faisant glisser les actions dans la partie blanche de la fenêtre de script." img="drophere.png" />
   <dialogs dialog="Tu peux utiliser le clic droit sur une action du script pour la supprimer, le bouton ci-dessous permet de vider la fenêtre de script d'un seul coup."  img="resetButton.png"/>-->
   <actionBlocLimit>

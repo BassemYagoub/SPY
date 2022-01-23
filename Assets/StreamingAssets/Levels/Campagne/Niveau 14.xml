@@ -30,6 +30,8 @@
       <row value="1" />
     </line>
   </map>
+  <dialogs dialog="Ce patrouilleur à l'air endormie. Profitons en pour nous entrainer avec la commande 'Si' (touche 'x') !" />
+  <dialogs dialog="Essayes d'aller au portail en déclenchant le bloc 'Si'. Choisit bien la condition qui déclenchera le bloc !" />
   <actionBlocLimit>
     <limit actionType="Forward" limit="-1" />
     <limit actionType="TurnLeft" limit="-1" />

@@ -126,8 +126,8 @@ public class DragDropSystem : FSystem
             if (targetContainer)
             {
                 // default put position Bar last
-                //positionBar.transform.SetParent(targetContainer.transform);
-				//positionBar.transform.SetSiblingIndex(targetContainer.transform.childCount + 1);
+                positionBar.transform.SetParent(targetContainer.transform);
+				positionBar.transform.SetSiblingIndex(targetContainer.transform.childCount + 1);
                 if (actionPointed_f.Count > 0)
                 {
                     // get focused item and adjust position bar depending on mouse position
@@ -235,7 +235,25 @@ public class DragDropSystem : FSystem
 			}
 			else
 			{
-				Transform toDelete = editableContainer.transform.GetChild(positionBar.transform.GetSiblingIndex() - 1);
+				Transform toDelete = null;
+				GameObject positionBarParent = positionBar.transform.parent.gameObject;
+				string key = getActionKey(positionBarParent.GetComponent<BaseElement>());
+				if (key != null)
+				{
+					Debug.Log("in bloc");
+					if (positionBar.transform.GetSiblingIndex() <= 1 && (key.Equals("If") || key.Equals("For") || key.Equals("While")))
+					{
+						Debug.Log("can't delete, start of block");
+					}
+					else
+					{
+						toDelete = positionBar.transform.parent.GetChild(positionBar.transform.GetSiblingIndex() - 1);
+					}
+                }
+                else
+                {
+					toDelete = positionBar.transform.parent.GetChild(positionBar.transform.GetSiblingIndex() - 1);
+				}
 				if(toDelete != null)
                 {
 					UnityEngine.Object.Destroy(toDelete.gameObject);
@@ -249,7 +267,43 @@ public class DragDropSystem : FSystem
 				if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
 				{
 					Debug.Log("Montes la baarre");
-					positionBar.transform.SetSiblingIndex(positionBar.transform.GetSiblingIndex() - 1);
+					GameObject positionBarParent = positionBar.transform.parent.gameObject;
+					string key = getActionKey(positionBarParent.GetComponent<BaseElement>());
+					Debug.Log("name " + positionBarParent.name);
+					Debug.Log("key: " + key);
+					if (key != null)
+					{
+						Debug.Log("in bloc");
+						if (positionBar.transform.GetSiblingIndex() <= 1 && (key.Equals("If") || key.Equals("For") || key.Equals("While")))
+						{
+							Debug.Log("get out of of bloc");
+							int parentPosition = positionBarParent.transform.GetSiblingIndex();
+							positionBar.transform.SetParent(positionBarParent.transform.parent);
+							positionBar.transform.SetSiblingIndex(parentPosition);
+						}
+						else
+						{
+							Debug.Log("Stay in block");
+							positionBar.transform.SetSiblingIndex(positionBar.transform.GetSiblingIndex() - 1);
+						}
+					}
+					else
+					{
+						Debug.Log("not in block");
+						GameObject focusAction = positionBar.transform.parent.GetChild(positionBar.transform.GetSiblingIndex()-1).gameObject;
+						string keyBis = getActionKey(focusAction.GetComponent<BaseElement>());
+						if (keyBis.Equals("If") || keyBis.Equals("For") || keyBis.Equals("While"))
+						{
+							Debug.Log("enter in bloc");
+							positionBar.transform.SetParent(focusAction.transform);
+							positionBar.transform.SetSiblingIndex(focusAction.transform.childCount - 1);
+                        }
+                        else
+                        {
+							Debug.Log("Stay in editableContainer");
+							positionBar.transform.SetSiblingIndex(positionBar.transform.GetSiblingIndex() - 1);
+						}
+					}
 				}
 				else
 				{
@@ -272,7 +326,43 @@ public class DragDropSystem : FSystem
 				if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
 				{
 					Debug.Log("Descends la baarre");
-					positionBar.transform.SetSiblingIndex(positionBar.transform.GetSiblingIndex() + 1);
+					GameObject positionBarParent = positionBar.transform.parent.gameObject;
+					string key = getActionKey(positionBarParent.GetComponent<BaseElement>());
+					Debug.Log("name " + positionBarParent.name);
+					Debug.Log("key: " + key);
+					if (key != null)
+					{
+						Debug.Log("in bloc");
+						if (positionBar.transform.GetSiblingIndex() >= positionBarParent.transform.childCount-1 && (key.Equals("If") || key.Equals("For") || key.Equals("While")))
+						{
+							Debug.Log("get out of of bloc");
+							int parentPosition = positionBarParent.transform.GetSiblingIndex();
+							positionBar.transform.SetParent(positionBarParent.transform.parent);
+							positionBar.transform.SetSiblingIndex(parentPosition+1);
+						}
+						else
+						{
+							Debug.Log("Stay in block");
+							positionBar.transform.SetSiblingIndex(positionBar.transform.GetSiblingIndex() + 1);
+						}
+					}
+					else
+					{
+						Debug.Log("not in block");
+						GameObject focusAction = positionBar.transform.parent.GetChild(positionBar.transform.GetSiblingIndex() + 1).gameObject;
+						string keyBis = getActionKey(focusAction.GetComponent<BaseElement>());
+						if (keyBis.Equals("If") || keyBis.Equals("For") || keyBis.Equals("While"))
+						{
+							Debug.Log("enter in bloc");
+							positionBar.transform.SetParent(focusAction.transform);
+							positionBar.transform.SetSiblingIndex(1);
+						}
+						else
+						{
+							Debug.Log("Stay in editableContainer");
+							positionBar.transform.SetSiblingIndex(positionBar.transform.GetSiblingIndex() + 1);
+						}
+					}
 				}
 				else
                 {
@@ -344,8 +434,9 @@ public class DragDropSystem : FSystem
 			{
 				itemKeyboard = UnityEngine.Object.Instantiate<GameObject>(keyboardPrefab);
 				GameObjectManager.bind(itemKeyboard);
+				GameObjectManager.addComponent<Dragged>(itemKeyboard);
 				//transfert forward to editable container
-				itemKeyboard.transform.SetParent(editableContainer.transform);
+				itemKeyboard.transform.SetParent(positionBar.transform.parent);
 				itemKeyboard.transform.SetSiblingIndex(positionBar.transform.GetSiblingIndex());
 				Debug.Log("ec active: " + editableContainer.activeInHierarchy);
 				foreach (Transform child in editableContainer.transform)
