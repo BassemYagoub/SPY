@@ -326,7 +326,43 @@ public class DragDropSystem : FSystem
 				if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
 				{
 					Debug.Log("Descends la baarre");
-					positionBar.transform.SetSiblingIndex(positionBar.transform.GetSiblingIndex() + 1);
+					GameObject positionBarParent = positionBar.transform.parent.gameObject;
+					string key = getActionKey(positionBarParent.GetComponent<BaseElement>());
+					Debug.Log("name " + positionBarParent.name);
+					Debug.Log("key: " + key);
+					if (key != null)
+					{
+						Debug.Log("in bloc");
+						if (positionBar.transform.GetSiblingIndex() >= positionBarParent.transform.childCount-1 && (key.Equals("If") || key.Equals("For") || key.Equals("While")))
+						{
+							Debug.Log("get out of of bloc");
+							int parentPosition = positionBarParent.transform.GetSiblingIndex();
+							positionBar.transform.SetParent(positionBarParent.transform.parent);
+							positionBar.transform.SetSiblingIndex(parentPosition+1);
+						}
+						else
+						{
+							Debug.Log("Stay in block");
+							positionBar.transform.SetSiblingIndex(positionBar.transform.GetSiblingIndex() + 1);
+						}
+					}
+					else
+					{
+						Debug.Log("not in block");
+						GameObject focusAction = positionBar.transform.parent.GetChild(positionBar.transform.GetSiblingIndex() + 1).gameObject;
+						string keyBis = getActionKey(focusAction.GetComponent<BaseElement>());
+						if (keyBis.Equals("If") || keyBis.Equals("For") || keyBis.Equals("While"))
+						{
+							Debug.Log("enter in bloc");
+							positionBar.transform.SetParent(focusAction.transform);
+							positionBar.transform.SetSiblingIndex(1);
+						}
+						else
+						{
+							Debug.Log("Stay in editableContainer");
+							positionBar.transform.SetSiblingIndex(positionBar.transform.GetSiblingIndex() + 1);
+						}
+					}
 				}
 				else
                 {
