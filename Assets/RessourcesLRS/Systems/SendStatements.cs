@@ -95,7 +95,7 @@ public class SendStatements : FSystem {
 	     }*/
         });
      }   
-    DateTime TimeClickJouer;
+    public static DateTime TimeClickJouer;
     public void JouerButtonSendStatement()
     {
    	TimeClickJouer = DateTime.Now;
@@ -112,7 +112,7 @@ public class SendStatements : FSystem {
         });
 
    }
-   DateTime TimeClickQuitter;
+   public static DateTime TimeClickQuitter;
    public void QuitterButtonSendStatement()
     {
     	TimeClickQuitter = DateTime.Now;
@@ -132,8 +132,6 @@ public class SendStatements : FSystem {
    public void GamePlayDuration(){
    	System.TimeSpan diff = TimeClickQuitter.Subtract(TimeClickJouer);
    	Debug.Log(" PLayTimeDUration : [ "+diff+"  ]");
-   	
-   	 Debug.Log("Player { "+GBL_Interface.playerName + " } has quit the game ");
         GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
         {
             verb = "completed",
@@ -283,7 +281,8 @@ public class SendStatements : FSystem {
    	
    }
    public void SpeedSendStatement(){
-   	
+   	 nbActionExec +=nbAction ;
+   	 nbAction=0;
    	 Debug.Log("player  { "+GBL_Interface.playerName + " } click on button Speed execution ");
         GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
         {
@@ -309,7 +308,7 @@ public class SendStatements : FSystem {
    	
    }
     public void ResetlSendStatement(){
-   	
+   	 nbAction=0;
    	 Debug.Log("player  { "+GBL_Interface.playerName + " } click on button Reset ");
         GameObjectManager.addComponent<ActionPerformedForLRS>(MainLoop.instance.gameObject, new
         {
@@ -358,7 +357,7 @@ public class SendStatements : FSystem {
 		{
 		    verb = "interacted",
 		    objectType = "menu",
-		    objectName = "Grp4_B.R.S :  Player {"+GBL_Interface.playerName+" }  completed Level [ "+LevelIndice+" ]   ....  at date [  "+ DateTime.Now.ToString("dd/MM/yyyy")+" ] Time : [ "+DateTime.Now.ToString("hh : mm :ss")+" ] Congratulations ! ",
+		    objectName = "Grp4_B.R.S :  Player {"+GBL_Interface.playerName+" }  End Level [ "+LevelIndice+" ]   ....  at date [  "+ DateTime.Now.ToString("dd/MM/yyyy")+" ] Time : [ "+DateTime.Now.ToString("hh : mm :ss")+" ] Congratulations ! ",
 	 
 		});
    	
@@ -383,7 +382,7 @@ public class SendStatements : FSystem {
         {
             verb = "completed",
             objectType = "menu",
-            objectName = "Grp4_B.R.S :  Player {"+GBL_Interface.playerName+" } Total Action  in level "+nbActionExec+" is :  [ "+nbAction+"  ]",
+            objectName = "Grp4_B.R.S :  Player {"+GBL_Interface.playerName+" } Total Action  in level "+nbActionExec+" is :  [ "+nbActionExec+"  ]",
  
         });
         nbActionExec	 = 0;

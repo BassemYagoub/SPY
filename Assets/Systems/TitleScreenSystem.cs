@@ -169,7 +169,6 @@ public class TitleScreenSystem : FSystem {
 	}
 
 	public void launchLevel(string levelDirectory, int level){
-		
 		gameData.levelToLoad = (levelDirectory,level);
 		GameObjectManager.loadScene("MainScene");
 	}
