@@ -30,6 +30,8 @@
       <row value="1" />
     </line>
   </map>
+  <dialogs dialog="Pour être sur que tu as bien compris, essayes cette fois d'aller au portail en utilisant les instruction une seul fois !" />
+  <dialogs dialog="Associes le 'For' et le 'Si' au bon moment." />
   <actionBlocLimit>
     <limit actionType="Forward" limit="1" />
     <limit actionType="TurnLeft" limit="0" />

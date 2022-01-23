@@ -44,6 +44,8 @@
       <row value="1" />
     </line>
   </map>
+  <dialogs dialog="Ce patrouilleur est vraiment concentré !" />
+  <dialogs dialog="Il serait judicieux d'attendre (Touche 'W') qu'il se déplace avant de continuer" />
   <actionBlocLimit>
     <limit actionType="Forward" limit="-1" />
     <limit actionType="TurnLeft" limit="-1" />

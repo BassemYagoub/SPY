@@ -44,6 +44,8 @@
       <row value="1" />
     </line>
   </map>
+  <dialogs dialog="Les patrouilleurs ont été alertés de notre évasion !" />
+  <dialogs dialog="Essayons de ne pas nous faire repérer. Evitons leurs champs de vision qui correspond aux zones rouges." />
   <actionBlocLimit>
     <limit actionType="Forward" limit="-1" />
     <limit actionType="TurnLeft" limit="-1" />

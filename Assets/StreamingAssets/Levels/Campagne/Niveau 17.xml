@@ -32,11 +32,13 @@
       <row value="1" />
     </line>
   </map>
-  <dialogs dialog="Regarde ! Il y a une pièce à récupérer. Ce n'est pas obligatoire mais elle pourrait te donner un meilleur score !" />
+  <dialogs dialog="Regarde ! Il y a des pièces à récupérer. Ce n'est pas obligatoire mais elles pourraient te donner un meilleur score !" />
+  <dialogs dialog="Une nouvelle instruction pourrait te faciliter la tâche. L'instruction 'While' (touche 'N') te permet de répéter des instructions tant que la condition est vrai." />
+  <dialogs dialog="Cela t'évitera dans certains cas de compter les cases comme à l'étage précédent !" />
   <actionBlocLimit>
     <limit actionType="Forward" limit="1" />
-    <limit actionType="TurnLeft" limit="0" />
-    <limit actionType="TurnRight" limit="0" />
+    <limit actionType="TurnLeft" limit="-1" />
+    <limit actionType="TurnRight" limit="-1" />
     <limit actionType="Wait" limit="0" />
     <limit actionType="Activate" limit="0" />
     <limit actionType="TurnBack" limit="0" />
