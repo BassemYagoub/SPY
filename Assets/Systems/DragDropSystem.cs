@@ -285,8 +285,19 @@ public class DragDropSystem : FSystem
 						}
 						else
 						{
-							Debug.Log("Stay in block");
-							positionBar.transform.SetSiblingIndex(positionBar.transform.GetSiblingIndex() - 1);
+							GameObject focusAction = positionBar.transform.parent.GetChild(positionBar.transform.GetSiblingIndex() - 1).gameObject;
+							string keyBis = getActionKey(focusAction.GetComponent<BaseElement>());
+							if (keyBis.Equals("If") || keyBis.Equals("For") || keyBis.Equals("While"))
+							{
+								Debug.Log("enter in subBloc");
+								positionBar.transform.SetParent(focusAction.transform);
+								positionBar.transform.SetSiblingIndex(focusAction.transform.childCount - 1);
+							}
+							else
+							{
+								Debug.Log("Stay in bloc");
+								positionBar.transform.SetSiblingIndex(positionBar.transform.GetSiblingIndex() - 1);
+							}
 						}
 					}
 					else
