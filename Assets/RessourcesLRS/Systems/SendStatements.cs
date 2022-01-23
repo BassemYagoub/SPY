@@ -107,7 +107,7 @@ public class SendStatements : FSystem {
         {
             verb = "started",
             objectType = "menu",
-            objectName = "Grp4_B.R.S :  Player {"+GBL_Interface.playerName+" } click on Button 'Jouer 'at date [ "+ DateTime.Now.ToString("dd/MM/yyyy")+" ] Time : [ "+DateTime.Now.ToString("hh : mm :ss")+" ] Total Global Click on button ' Jouer ' for this player in this session of  Game is  "+1,
+            objectName = "Grp4_B.R.S :  Player {"+GBL_Interface.playerName+" } click on Button 'Jouer 'at date [ "+ DateTime.Now.ToString("dd/MM/yyyy")+" ] Time : [ "+DateTime.Now.ToString("hh : mm :ss")+" ] ",
  
         });
 
