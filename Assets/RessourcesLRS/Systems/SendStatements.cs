@@ -382,7 +382,7 @@ public class SendStatements : FSystem {
         {
             verb = "completed",
             objectType = "menu",
-            objectName = "Grp4_B.R.S :  Player {"+GBL_Interface.playerName+" } Total Action  in level "+nbActionExec+" is :  [ "+nbActionExec+"  ]",
+            objectName = "Grp4_B.R.S :  Player {"+GBL_Interface.playerName+" } Total Action  in level "+LevelIndice+" is :  [ "+nbActionExec+"  ]",
  
         });
         nbActionExec	 = 0;
