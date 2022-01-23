@@ -37,6 +37,7 @@ public class DragDropSystem : FSystem
 	private Dictionary<KeyCode, string> translation = new Dictionary<KeyCode, string>();
 	private GameObject itemKeyboard;
 	private GameObject keyboardPrefab;
+	private GameObject focusAction;
 
 	public DragDropSystem()
 	{
@@ -126,8 +127,8 @@ public class DragDropSystem : FSystem
             if (targetContainer)
             {
                 // default put position Bar last
-                //positionBar.transform.SetParent(targetContainer.transform);
-				//positionBar.transform.SetSiblingIndex(targetContainer.transform.childCount + 1);
+                positionBar.transform.SetParent(targetContainer.transform);
+				positionBar.transform.SetSiblingIndex(targetContainer.transform.childCount + 1);
                 if (actionPointed_f.Count > 0)
                 {
                     // get focused item and adjust position bar depending on mouse position
@@ -249,6 +250,7 @@ public class DragDropSystem : FSystem
 				if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
 				{
 					Debug.Log("Montes la baarre");
+					//if(focusAction != null && focusAction.)
 					positionBar.transform.SetSiblingIndex(positionBar.transform.GetSiblingIndex() - 1);
 				}
 				else
@@ -346,7 +348,7 @@ public class DragDropSystem : FSystem
 				GameObjectManager.bind(itemKeyboard);
 				GameObjectManager.addComponent<Dragged>(itemKeyboard);
 				//transfert forward to editable container
-				itemKeyboard.transform.SetParent(editableContainer.transform);
+				itemKeyboard.transform.SetParent(positionBar.transform.parent);
 				itemKeyboard.transform.SetSiblingIndex(positionBar.transform.GetSiblingIndex());
 				Debug.Log("ec active: " + editableContainer.activeInHierarchy);
 				foreach (Transform child in editableContainer.transform)
