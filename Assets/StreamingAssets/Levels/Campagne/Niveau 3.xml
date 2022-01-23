@@ -27,7 +27,7 @@
     </line>
   </map>
   <dialogs dialog="La sortie est au bout du couloir sur la gauche." />
-  <dialogs dialog="Essayes la flèche de gauche pour pivoter." />
+  <dialogs dialog="Essayes la flèche de gauche pour pivoter. " img="turnleftright.png"/>
   <actionBlocLimit>
     <limit actionType="Forward" limit="-1" />
     <limit actionType="TurnLeft" limit="1" />
